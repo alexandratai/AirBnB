@@ -1,4 +1,6 @@
-# AirBnB
+# Airbnb
+
+
 
 # `<name of application here>`
 
@@ -54,7 +56,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/:userId
+  * URL: /users/me
   * Body: none
 
 * Successful Response
@@ -280,7 +282,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/:userId/spots
+  * URL: /users/me/spots
   * Body: none
 
 * Successful Response
@@ -634,7 +636,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/:userId/reviews
+  * URL: /users/me/reviews
   * Body: none
 
 * Successful Response
@@ -992,7 +994,7 @@ Return all the bookings that the current user has made.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/:userId/bookings
+  * URL: /users/me/bookings
   * Body: none
 
 * Successful Response
@@ -1338,7 +1340,7 @@ Delete an existing image for a Spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /spots/:spotId/images
+  * URL: /spots/:spotId/images/:imageId
   * Body: none
 
 * Successful Response
@@ -1375,7 +1377,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /reviews/:reviewId/images
+  * URL: /reviews/:reviewId/images/:imageId
   * Body: none
 
 * Successful Response
