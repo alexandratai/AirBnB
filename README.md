@@ -1,6 +1,6 @@
 # Airbnb
 
-
+![schema](schema.png)
 
 # `<name of application here>`
 
