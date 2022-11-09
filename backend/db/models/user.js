@@ -7,8 +7,8 @@ const { Model, Validator } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, username, email } = this;
-      return { id, username, email };
+      const { id, username, email, firstName, lastName } = this;
+      return { id, username, email, firstName, lastName };
     };
 
     validatePassword(password) {
@@ -34,12 +34,14 @@ module.exports = (sequelize, DataTypes) => {
       }
     };
 
-    static async signup({ username, email, password }) {
+    static async signup({ username, email, password, firstName, lastName }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         username,
         email,
-        hashedPassword
+        hashedPassword,
+        firstName, 
+        lastName
       });
       return await User.scope('currentUser').findByPk(user.id);
     };
@@ -50,9 +52,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Spot, {
+        foreignKey: 'ownerId',
+        onDelete: 'cascade',
+        hooks: true,
+      })
+
+      User.hasMany(models.Review, {
+        foreignKey: 'userId',
+        onDelete: 'cascade',
+        hooks: true,
+      })
+
+      User.hasMany(models.Booking, {
+        foreignKey: 'userId',
+        onDelete: 'cascade',
+        hooks: true,
+      })
     }
   }
   User.init({
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
