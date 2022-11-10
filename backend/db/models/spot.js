@@ -86,6 +86,13 @@ module.exports = (sequelize, DataTypes) => {
     //     exclude: [ 'createdAt', 'updatedAt' ]
     //   }
     // }
+    scopes: {
+      noPreviewImage: {
+        attributes: {
+          exclude: [ 'previewImage' ]
+        }
+      }
+    }
   
   });
   return Spot;
