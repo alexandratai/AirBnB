@@ -22,12 +22,14 @@ router.delete(
 router.get(
     '/',
     restoreUser,
-    (req, res) => {
+    async (req, res) => {
       const { user } = req;
       if (user) {
-        return res.json({
-          user: user.toSafeObject()
-        });
+        const resUser = user.toSafeObject();
+        resUser.token = await setTokenCookie(res, user)
+        return res.json(
+          resUser
+        );
       } else return res.json({});
     }
   );

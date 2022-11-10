@@ -49,12 +49,10 @@ router.post(
       err.status = 403;
       return next(err)
     };
-
     
     const user = await User.signup({ email, username, password, firstName, lastName });
-
     user.dataValues.token = await setTokenCookie(res, user);
-
+    
     return res.json(
       user,
     );
@@ -64,8 +62,9 @@ router.post(
 
 // router.get('/me', requireAuth, async (req, res) => {
 //   const { user } = req;
-//   res.json(
-//     user.toSafeObject()
+//   return res.json(
+//     // user.toSafeObject()
+//     user.dataValues.token = await setTokenCookie(res, user)
 //   )
 // });
 
