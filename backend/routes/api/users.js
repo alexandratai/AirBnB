@@ -2,7 +2,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Spot } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -59,6 +59,18 @@ router.post(
   }
 
 );
+
+router.get('/me/spots', requireAuth, async (req, res) => {
+  const spotsOfUser = await Spot.findAll({
+    where: {
+      ownerId: req.user.id 
+    }
+  })
+
+  return res.json({
+    Spots: spotsOfUser
+  });
+});
 
 // router.get('/me', requireAuth, async (req, res) => {
 //   const { user } = req;
