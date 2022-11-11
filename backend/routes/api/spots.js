@@ -7,6 +7,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const review = require('../../db/models/review');
 const user = require('../../db/models/user');
+const { route } = require('./users');
 
 const router = express.Router();
 
@@ -39,6 +40,17 @@ const validateSpot = [
     check('price')
         .exists({ checkFalsy: true })
         .withMessage('Price per day is required'),
+    handleValidationErrors
+];
+
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
 
@@ -104,11 +116,27 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 });
 
 router.get('/:spotId', async (req, res, next) => { // ############ GET DETAILS OF SPOT BY ID
-    const numReviews = await Review.findByPk(req.params.spotId); // ???
-    const avgStarRating = await Review.findByPk(req.params.spotId, {
-        attributes: ['stars']
-    })
+    let numReviews = await Review.findByPk(req.params.spotId); // ???
+    if (numReviews === null) {
+        numReviews = 0;
+    } else {
+        numReviews = numReviews.length // HOW TO PASS THIS AND AVGSTARRATING IN
+    };
 
+    let avgStarRating = await Review.findByPk(req.params.spotId, {
+        attributes: ['stars']
+    });
+
+    if (avgStarRating === null) {
+        avgStarRating = 0;
+    } else {
+        for (let i = 0; i < avgStarRating.length; i++) {
+            let total = 0; // Add all the stars together... divide by length?
+
+        }
+    }
+
+    // console.log("###############", avgStarRating)
 
     const spot = await Spot.findByPk(req.params.spotId, {
         attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt'],
@@ -118,7 +146,8 @@ router.get('/:spotId', async (req, res, next) => { // ############ GET DETAILS O
                 attributes: ['id', 'url']
             },
             {
-                model: User, // NOT OWNER - IS THIS CORRECT?
+                model: User,
+                as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
             }
         ]
@@ -185,7 +214,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => { //
             spot.price = price;
         }
 
-        spot.save(); 
+        spot.save();
 
         return res.json(spot)
     } else {
@@ -193,6 +222,39 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => { //
         err.status = 404;
         return next(err)
     }
+});
+
+// CREATE A REVIEW FOR A SPOT BASED ON A SPOT'S ID
+
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+
+    const userId = req.user.id;
+    const currentSpot = await Spot.findByPk(req.params.spotId);
+    const { review, stars } = req.body;
+
+    if (!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    };
+
+    const existingReview = await Review.findByPk(req.params.spotId)
+
+    if (existingReview.userId === userId) { 
+        const err = new Error("User already has a review for this spot");
+        err.status = 403;
+        return next(err);
+    };
+
+    const newReview = await Review.create({
+        userId,
+        spotId: currentSpot.id,
+        review,
+        stars
+    })
+
+    res.status(201);
+    return res.json(newReview);
 });
 
 module.exports = router;
