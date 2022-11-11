@@ -3,6 +3,8 @@ const express = require('express');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { Spot, SpotImage, User, Review } = require('../../db/models');
 
+const { Sequelize, fn } = require('sequelize');
+
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const review = require('../../db/models/review');
@@ -49,7 +51,7 @@ const validateReview = [
         .withMessage('Review text is required'),
     check('stars')
         .exists({ checkFalsy: true })
-        .isLength({ min: 1, max: 5 })
+        .isInt({ min: 1, max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
@@ -116,31 +118,31 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 });
 
 router.get('/:spotId', async (req, res, next) => { // ############ GET DETAILS OF SPOT BY ID
-    let numReviews = await Review.findByPk(req.params.spotId); // ???
-    if (numReviews === null) {
-        numReviews = 0;
-    } else {
-        numReviews = numReviews.length // HOW TO PASS THIS AND AVGSTARRATING IN
-    };
-
-    let avgStarRating = await Review.findByPk(req.params.spotId, {
-        attributes: ['stars']
-    });
-
-    if (avgStarRating === null) {
-        avgStarRating = 0;
-    } else {
-        for (let i = 0; i < avgStarRating.length; i++) {
-            let total = 0; // Add all the stars together... divide by length?
-
-        }
-    }
-
-    // console.log("###############", avgStarRating)
 
     const spot = await Spot.findByPk(req.params.spotId, {
-        attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt'],
+        attributes: {
+            include: [
+                'id',
+                'ownerId',
+                'address',
+                'city',
+                'state',
+                'country',
+                'lat',
+                'lng',
+                'name',
+                'description',
+                'price',
+                'createdAt',
+                'updatedAt',
+                [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 'avgStarRating'],
+                [Sequelize.fn("SUM", Sequelize.col("Reviews.review")), 'numReviews']
+            ]
+        },
         include: [
+            {
+                model: Review
+            },
             {
                 model: SpotImage,
                 attributes: ['id', 'url']
@@ -240,7 +242,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const existingReview = await Review.findByPk(req.params.spotId)
 
-    if (existingReview.userId === userId) { 
+    if (existingReview.userId === userId) {
         const err = new Error("User already has a review for this spot");
         err.status = 403;
         return next(err);
