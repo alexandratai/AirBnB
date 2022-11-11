@@ -259,4 +259,10 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     return res.json(newReview);
 });
 
+// GET ALL REVIEWS BY A SPOTS ID
+
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+});
+
 module.exports = router;
