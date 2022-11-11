@@ -229,7 +229,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => { //
 // CREATE A REVIEW FOR A SPOT BASED ON A SPOT'S ID
 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
-
+    // console.log("######", req.user)
     const userId = req.user.id;
     const currentSpot = await Spot.findByPk(req.params.spotId);
     const { review, stars } = req.body;
@@ -242,7 +242,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const existingReview = await Review.findByPk(req.params.spotId)
 
-    if (existingReview.userId === userId) {
+    if (existingReview && existingReview.userId === userId) {
         const err = new Error("User already has a review for this spot");
         err.status = 403;
         return next(err);
