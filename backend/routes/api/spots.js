@@ -136,7 +136,7 @@ router.get('/:spotId', async (req, res, next) => { // ############ GET DETAILS O
                 'createdAt',
                 'updatedAt',
                 [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 'avgStarRating'],
-                [Sequelize.fn("SUM", Sequelize.col("Reviews.review")), 'numReviews']
+                [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), 'numReviews']
             ]
         },
         include: [
