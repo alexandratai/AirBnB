@@ -26,7 +26,7 @@ const router = express.Router();
 
 // EDIT A BOOKING ########
 
-router.put('/:bookingId', requireAuth, async (req, res, next) => {
+router.put("/:bookingId", requireAuth, async (req, res, next) => {
   const userId = req.user.id;
   const booking = await Booking.findByPk(req.params.bookingId);
   const { startDate, endDate } = req.body;
@@ -50,40 +50,71 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
   }
 
   // Booking conflict
-  if (booking && (booking.dataValues.startDate.valueOf() === startDateObj.valueOf() || booking.dataValues.endDate.valueOf() === endDateObj.valueOf())) {
-    const err = new Error("Sorry, this spot is already booked for the specified dates");
+  if (
+    booking &&
+    (booking.dataValues.startDate.valueOf() === startDateObj.valueOf() ||
+      booking.dataValues.endDate.valueOf() === endDateObj.valueOf())
+  ) {
+    const err = new Error(
+      "Sorry, this spot is already booked for the specified dates"
+    );
     err.status = 403;
     err.errors = {
-        "startDate": "Start date conflicts with an existing booking",
-        "endDate": "End date conflicts with an existing booking",
-    }
+      startDate: "Start date conflicts with an existing booking",
+      endDate: "End date conflicts with an existing booking",
+    };
 
     return next(err);
-}
+  }
 
   if (startDateObj > endDateObj) {
     const err = new Error("Validation error");
     err.title = "Validation error";
     err.status = 400;
     err.errors = {
-        "endDate": "endDate cannot come before startDate"
+      endDate: "endDate cannot come before startDate",
     };
-    return next(err)
-};
+    return next(err);
+  }
 
   if (booking.userId === userId) {
     if (startDate) {
       booking.startDate = startDate;
-    };
+    }
 
     if (endDate) {
       booking.endDate = endDate;
     }
 
     booking.save();
-    return res.json(booking)
+    return res.json(booking);
+  }
+});
+
+router.delete("/:bookingId", requireAuth, async (req, res, next) => {
+  const currentUser = req.user.id;
+  const doomedBooking = await Booking.findByPk(req.params.bookingId);
+  const spot = await Spot.findOne({
+    where: {
+      id: doomedBooking.spotId,
+    },
+  });
+
+  if (!doomedBooking) {
+    const err = new Error("Booking couldn't be found");
+    err.status = 404;
+    return next(err);
+  };
+
+  if (doomedBooking.userId === currentUser || spot.ownerId === currentUser) {
+    await doomedBooking.destroy();
+    return res.json({
+      message: "Successfully deleted",
+      statusCode: 200,
+    });
   }
 
+  // Bookings that have been started can't be deleted
 });
 
 module.exports = router;

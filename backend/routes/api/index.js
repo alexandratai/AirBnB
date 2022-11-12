@@ -9,7 +9,8 @@ const bookingsRouter = require('./bookings.js');
 // GET /api/restore-user
 const { restoreUser } = require('../../utils/auth.js');
 
-const { Booking, Review, ReviewImage, Spot, SpotImage, User } = require('../../db/models')
+const { Booking, Review, ReviewImage, Spot, SpotImage, User } = require('../../db/models');
+const spot = require('../../db/models/spot.js');
 
 router.use(restoreUser);
 

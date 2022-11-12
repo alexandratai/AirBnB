@@ -69,38 +69,91 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 });
 
 // EDIT A REVIEW
-router.put("/:reviewId", requireAuth, validateReviews, async (req, res, next) => {
-  const currentUser = req.user.id;
-  let currentReview = await Review.findByPk(req.params.reviewId);
-  const { userId, spotId, review, stars } = req.body;
+router.put(
+  "/:reviewId",
+  requireAuth,
+  validateReviews,
+  async (req, res, next) => {
+    const currentUser = req.user.id;
+    let currentReview = await Review.findByPk(req.params.reviewId);
+    const { userId, spotId, review, stars } = req.body;
 
-  if (!currentReview) {
+    if (!currentReview) {
+      const err = new Error("Review couldn't be found");
+      err.status = 404;
+      return next(err);
+    }
+
+    if (currentReview.userId === currentUser) {
+      if (userId) {
+        currentReview.userId = currentUser;
+      }
+
+      if (spotId) {
+        currentReview.spotId = spotId;
+      }
+
+      if (review) {
+        currentReview.review = review;
+      }
+
+      if (stars) {
+        currentReview.stars = stars;
+      }
+    }
+
+    currentReview.save();
+
+    return res.json(currentReview);
+  }
+);
+
+// DELETE A REVIEW IMAGE
+
+router.delete(
+  "/:reviewId/images/:imageId",
+  requireAuth,
+  async (req, res, next) => {
+    const currentUser = req.user.id;
+    const review = await Review.findByPk(req.params.reviewId);
+    const { reviewId, imageId } = req.params;
+    const doomedImage = await ReviewImage.findByPk(imageId);
+
+    if (!doomedImage) {
+      const err = new Error("Review Image couldn't be found");
+      err.status = 404;
+      return next(err);
+    }
+
+    if (review.userId === currentUser) {
+      await doomedImage.destroy();
+      return res.json({
+        message: "Successfully deleted",
+        statusCode: 200,
+      });
+    }
+  }
+);
+
+// DELETE A REVIEW
+
+router.delete("/:reviewId", requireAuth, async (req, res, next) => {
+  const currentUser = req.user.id;
+  const doomedReview = await Review.findByPk(req.params.reviewId);
+
+  if (!doomedReview) {
     const err = new Error("Review couldn't be found");
     err.status = 404;
     return next(err);
-  };
-
-  if (currentReview.userId === currentUser) {
-    if (userId) {
-      currentReview.userId = currentUser;
-    }
-
-    if (spotId) {
-      currentReview.spotId = spotId;
-    }
-
-    if (review) {
-      currentReview.review = review;
-    }
-
-    if (stars) {
-      currentReview.stars = stars;
-    }
   }
 
-  currentReview.save();
-
-  return res.json(currentReview);
+  if (doomedReview.userId === currentUser) {
+    await doomedReview.destroy();
+    return res.json({
+      message: "Successfully deleted",
+      statusCode: 200,
+    });
+  }
 });
 
 module.exports = router;

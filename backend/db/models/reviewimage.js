@@ -12,8 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       ReviewImage.belongsTo(models.Review, {
         foreignKey: "reviewId",
-        onDelete: 'cascade',
-        hooks: true,
       })
     }
   }
@@ -23,11 +21,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'ReviewImage',
-    // defaultScope: {
-    //     attributes: {
-    //       exclude: [ 'reviewId', 'updatedAt', 'createdAt' ]
-    //     }
-    //   }
   });
   return ReviewImage;
 };
