@@ -73,38 +73,38 @@ const validateQueryParameters = [
     .isInt({ min: 0, max: 20 })
     .withMessage("Size must be greater than or equal to 0"),
   check("minLat")
-    .exists({ checkFalsy: true })
-    .isDecimal()
+    .optional().exists({ checkFalsy: true })
+    .optional().isDecimal()
     .withMessage("Minimum latitude is invalid"),
   check("maxLat")
-    .exists({ checkFalsy: true })
-    .isDecimal()
+    .optional().exists({ checkFalsy: true })
+    .optional().isDecimal()
     .withMessage("Maximum latitude is invalid"),
   check("minLng")
-    .exists({ checkFalsy: true })
-    .isDecimal()
+    .optional().exists({ checkFalsy: true })
+    .optional().isDecimal()
     .withMessage("Minimum longitude is invalid"),
   check("maxLng")
-    .exists({ checkFalsy: true })
-    .isDecimal()
+  .optional().exists({ checkFalsy: true })
+  .optional().isDecimal()
     .withMessage("Maximum longitude is invalid"),
   check("minPrice")
-    .exists({ checkFalsy: true })
-    .isDecimal()
+  .optional().exists({ checkFalsy: true })
+  .optional().isDecimal()
     .isInt({ min: 0 })
     .withMessage("Minimum price must be greater than or equal to 0"),
   check("maxPrice")
-    .exists({ checkFalsy: true })
-    .isDecimal()
+  .optional().exists({ checkFalsy: true })
+  .optional().isDecimal()
     .isInt({ min: 0 })
     .withMessage("Maximum price must be greater than or equal to 0"),
   handleValidationErrors,
 ];
 
-router.get("/", async (req, res) => {
-  const allSpots = await Spot.findAll();
-  res.json(allSpots);
-});
+// router.get("/", async (req, res) => {
+//   const allSpots = await Spot.findAll();
+//   res.json(allSpots);
+// });
 
 router.post("/", requireAuth, validateSpot, async (req, res, next) => {
   const ownerId = req.user.id;
@@ -535,6 +535,7 @@ router.get("/", validateQueryParameters, async (req, res, next) => {
   page = parseInt(page);
   size = parseInt(size);
 
+  console.log("#####", page)
   const pagination = {};
 
   if (page >= 0 && page <= 10 && size >= 0 && size <= 20) {
@@ -562,7 +563,8 @@ router.get("/", validateQueryParameters, async (req, res, next) => {
     ...pagination,
   });
 
-  return res.json(spots);
+  
+  return res.json({spots, page, size});
 });
 
 module.exports = router;
