@@ -446,4 +446,29 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     }
 });
 
+router.delete('/:spotId/images/:imageId', requireAuth, async(req, res, next) => {
+    const currentUser = req.user.id;
+    const spot = await Spot.findByPk(req.params.spotId);
+    const doomedImage = await SpotImage.findByPk(req.params.imageId);
+
+    if (!doomedImage) {
+        const err = new Error("Couldn't find a Spot Image with the specified id")
+        err.status = 404;
+        err.errors = {
+            "message": "Spot Image couldn't be found",
+            "statusCode": 404
+        }
+        return next(err);
+    }
+
+    if (spot.ownerId === currentUser) {
+        await doomedImage.destroy();
+        return res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+        })
+    }
+   
+});
+
 module.exports = router;
