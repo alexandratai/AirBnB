@@ -130,6 +130,8 @@ router.get("/me/reviews", requireAuth, async (req, res, next) => {
   return res.json({Reviews});
 });
 
+// GET ALL OF THE CURRENT USER'S BOOKINGS
+
 router.get('/me/bookings', requireAuth, async (req, res, next) => {
   const currentUser = req.user.id;
   const Bookings = await Booking.findAll({

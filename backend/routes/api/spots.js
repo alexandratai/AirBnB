@@ -312,7 +312,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
   return res.json({ Reviews });
 });
 
-// CREATE A BOOKING BASED ON SPOT ID
+// CREATE A BOOKING BASED ON SPOT ID #############
 
 router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     
@@ -322,18 +322,28 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     const { startDate, endDate } = req.body;
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
-
+    
     const currentBookings = await Booking.findOne({
-            where: {
-                startDate: {[Op.eq]: startDateObj},
-                endDate: {[Op.eq]: endDateObj}
-            }
+        where: {
+           [Op.or]: [
+            {startDate: {[Op.between]: [startDateObj, endDateObj]}},
+            {endDate: {[Op.between]: [startDateObj, endDateObj]}}
+           ]
+        }
     });
+
+    console.log("CURRENT BOOKINGS", currentBookings)
 
     if (spot === null) {
       const err = new Error("Spot couldn't be found");
       err.status = 404;
       return next(err);
+    }
+
+    if (spot.ownerid === currentUser) {
+        const err = new Error("Sorry, you cannot book this spot because you own this spot");
+        err.status = 403;
+        return next(err);
     }
 
     if (startDateObj >= endDateObj) {
@@ -345,8 +355,20 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
         };
         return next(err)
     };
+    
+    // console.log("#########", currentBookings)
 
-    if (currentBookings.dataValues.startDate.valueOf() === startDateObj.valueOf() || currentBookings.dataValues.endDate.valueOf() === endDateObj.valueOf()) {
+    if (!currentBookings && spot.ownerId !== currentUser) {
+      const newBooking = await Booking.create({
+        spotId: req.params.spotId,
+        userId: currentUser,
+        startDate,
+        endDate,
+      });
+      return res.json(newBooking);
+    }
+
+    if (currentBookings && (currentBookings.dataValues.startDate.valueOf() === startDateObj.valueOf() || currentBookings.dataValues.endDate.valueOf() === endDateObj.valueOf())) {
         const err = new Error("Sorry, this spot is already booked for the specified dates");
         err.status = 403;
         err.errors = {
@@ -357,24 +379,64 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    if (spot.ownerid === currentUser) {
-        const err = new Error("Sorry, you cannot book this spot because you own this spot");
-        err.status = 403;
-        return next(err);
-    }
-
-    if (spot.ownerId !== currentUser) {
-      const newBooking = await Booking.create({
-        spotId: req.params.spotId,
-        userId: currentUser,
-        startDate,
-        endDate,
-      });
-      return res.json(newBooking);
-    }
-
-
   }
 );
+
+// GET ALL BOOKINGS FOR A SPOT BASED ON SPOT ID #########
+
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const currentUser = req.user.id;
+    const currentSpot = await Spot.findByPk(req.params.spotId);
+
+    if (currentSpot && currentSpot.ownerId === currentUser) {
+        const yourSpotBookings = await Booking.findAll({
+            where: {
+                spotId: req.params.spotId
+            },
+            attributes: {
+                include: [
+                    'id',
+                    'spotId',
+                    'userId',
+                    'startDate',
+                    'endDate'
+                ]
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: {
+                        include: ['firstName', 'lastName']
+                    }
+                }
+            ]
+        })
+
+        return res.json({Bookings: yourSpotBookings});
+    };
+
+    if (currentSpot && currentSpot.ownerId !== currentUser) {
+        const notYourSpotBookings = await Booking.findAll({
+            where: {
+                spotId: req.params.spotId
+            },
+            attributes: {
+                include: [
+                    'spotId',
+                    'startDate',
+                    'endDate'
+                ]
+            },
+        })
+        return res.json({Bookings: notYourSpotBookings});
+    };
+
+
+    if (!currentSpot) {
+        const err =  new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err)
+    }
+});
 
 module.exports = router;

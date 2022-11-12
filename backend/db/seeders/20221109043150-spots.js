@@ -30,6 +30,19 @@ module.exports = {
         price: 150,
         previewImage: "www.other-demo.io"
       },
+      {
+        ownerId: 3,
+        address: "301 Demo Road",
+        city: "Demo City",
+        state: "New York",
+        country: "United States",
+        lat: 3010,
+        lng: 4001,
+        name: "Yay",
+        description: "A very cool spot",
+        price: 152,
+        previewImage: "www.other-demos.io"
+      },
     ], {});
   },
 
