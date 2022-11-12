@@ -2,11 +2,12 @@
 const express = require("express");
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Spot, Review, ReviewImage } = require("../../db/models");
+const { User, Spot, Review, ReviewImage, Booking } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const review = require("../../db/models/review");
+const booking = require("../../db/models/booking");
 
 // const { requireAuth } = require('/../../utils/auth');
 
@@ -127,6 +128,44 @@ router.get("/me/reviews", requireAuth, async (req, res, next) => {
     ],
   });
   return res.json({Reviews});
+});
+
+router.get('/me/bookings', requireAuth, async (req, res, next) => {
+  const currentUser = req.user.id;
+  const Bookings = await Booking.findAll({
+    where: {
+      userId: currentUser
+    },
+    attributes: {
+      include: [
+        'id',
+        'spotId',
+        'userId',
+        'startDate',
+        'endDate'
+      ]
+    },
+    include: [
+      { model: Spot,
+      attributes: [
+        'id',
+        'ownerId',
+        'address',
+        'city',
+        'state',
+        'country',
+        'lat',
+        'lng',
+        'name',
+        'price',
+        'previewImage'
+      ]
+     }
+    ],
+  });
+
+  return res.json({Bookings});
+
 });
 
 module.exports = router;
