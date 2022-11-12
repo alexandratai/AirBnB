@@ -400,13 +400,14 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
                     'userId',
                     'startDate',
                     'endDate'
-                ]
+                ],
             },
             include: [
                 {
                     model: User,
                     attributes: {
-                        include: ['firstName', 'lastName']
+                        include: ['firstName', 'lastName'],
+                        exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
                     }
                 }
             ]
@@ -425,6 +426,12 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
                     'spotId',
                     'startDate',
                     'endDate'
+                ],
+                exclude: [
+                    'id',
+                    'userId',
+                    'createdAt',
+                    'updatedAt'
                 ]
             },
         })

@@ -33,6 +33,33 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
   const startDateObj = new Date(startDate);
   const endDateObj = new Date(endDate);
+  let today = new Date();
+
+  // Can't edit a booking that's past the end date
+  if (today > booking.endDate) {
+    const err = new Error("Past bookings can't be modified");
+    err.status = 403;
+    return next(err);
+  }
+
+  // Couldn't find a Booking with the specified id
+  if (!booking) {
+    const err = new Error("Booking couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
+
+  // Booking conflict
+  if (booking && (booking.dataValues.startDate.valueOf() === startDateObj.valueOf() || booking.dataValues.endDate.valueOf() === endDateObj.valueOf())) {
+    const err = new Error("Sorry, this spot is already booked for the specified dates");
+    err.status = 403;
+    err.errors = {
+        "startDate": "Start date conflicts with an existing booking",
+        "endDate": "End date conflicts with an existing booking",
+    }
+
+    return next(err);
+}
 
   if (startDateObj > endDateObj) {
     const err = new Error("Validation error");
@@ -56,13 +83,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     booking.save();
     return res.json(booking)
   }
-
-  if (!booking) {
-    const err = new Error("Booking couldn't be found");
-    err.status = 404;
-    return next(err);
-  }
-
 
 });
 
