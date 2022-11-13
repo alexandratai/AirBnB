@@ -199,14 +199,16 @@ router.get("/:spotId", async (req, res, next) => {
         // [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), "numReviews"],
         [
 					Sequelize.literal(
-						`(SELECT COUNT(*) FROM Reviews AS counted
+						`(SELECT COUNT(Reviews.id) FROM Spots
+            JOIN Reviews ON Spots.id = Reviews.spotId
           WHERE spotId = ${req.params.spotId})`
 					),
 					"totalReviews",
 				],
 				[
 					Sequelize.literal(
-						`(SELECT AVG(stars) FROM Reviews AS average
+						`(SELECT AVG(Reviews.stars) FROM Spots
+            JOIN Reviews ON Spots.id = Reviews.spotId
           WHERE spotId = ${req.params.spotId})`
 					),
 					"averageStars",
@@ -216,7 +218,7 @@ router.get("/:spotId", async (req, res, next) => {
     include: [
       {
         model: Review,
-        require: "true",
+        require: true,
       },
       {
         model: SpotImage,
