@@ -91,7 +91,9 @@ module.exports = (sequelize, DataTypes) => {
           exclude: [ 'previewImage' ]
         }
       }
-    }
+    },
+    require: "true",
+    duplicating: "false"
   
   });
   return Spot;
