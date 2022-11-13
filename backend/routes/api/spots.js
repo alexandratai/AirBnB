@@ -217,7 +217,7 @@ router.get("/:spotId", async (req, res, next) => {
     group: "Spots.id",
     // require: "true",
     // duplicating: "false",
-    subQuery: false,
+    subQuery: "false",
   });
 
   if (spot) {
