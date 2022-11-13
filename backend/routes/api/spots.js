@@ -195,14 +195,28 @@ router.get("/:spotId", async (req, res, next) => {
         "price",
         "createdAt",
         "updatedAt",
-        [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"],
-        [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), "numReviews"],
+        // [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"],
+        // [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), "numReviews"],
+        [
+					Sequelize.literal(
+						`(SELECT COUNT(*) FROM Reviews AS counted
+          WHERE spotId = ${req.params.spotId})`
+					),
+					"totalReviews",
+				],
+				[
+					Sequelize.literal(
+						`(SELECT AVG(stars) FROM Reviews AS average
+          WHERE spotId = ${req.params.spotId})`
+					),
+					"averageStars",
+				],
       ],
     },
     include: [
       {
         model: Review,
-        subQuery: "false",
+        // subQuery: "false",
       },
       {
         model: SpotImage,
@@ -218,7 +232,7 @@ router.get("/:spotId", async (req, res, next) => {
     group: "Spots.id",
     // require: "true",
     // duplicating: "false",
-    subQuery: "false",
+    // subQuery: "false",
   });
 
   if (spot) {
