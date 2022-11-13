@@ -564,7 +564,7 @@ router.get("/", validateQueryParameters, async (req, res, next) => {
   });
 
   
-  return res.json({spots, page, size});
+  return res.json({Spots: spots, page, size});
 });
 
 module.exports = router;

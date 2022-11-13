@@ -100,14 +100,23 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     },
   });
 
-  // If the booking isn't owned by the current user, make another error.
+  const today = new Date();
+
+  // Bookings that have been started can't be deleted
+  // Check if the current date is > start date ^
+  if (today > doomedBooking.startDate) {
+    const err = new Error("Bookings that have been started can't be deleted");
+    err.status = 403;
+    return next(err);
+  }
 
   if (!doomedBooking) {
     const err = new Error("Booking couldn't be found");
     err.status = 404;
     return next(err);
   };
-
+  
+  
   if (doomedBooking && (doomedBooking.userId === currentUser || spot.ownerId === currentUser)) {
     await doomedBooking.destroy();
     return res.json({
@@ -115,9 +124,13 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
       statusCode: 200,
     });
   }
+  // If the booking isn't owned by the current user, make another error.
+  if (doomedBooking && (doomedBooking.userId !== currentUser || spot.ownerId !== currentUser)) {
+    const err = new Error("You do not own this booking or spot");
+    err.status = 403;
+    return next(err);
+  };
 
-  // Bookings that have been started can't be deleted
-  // Check if the current date is > start date ^
 });
 
 module.exports = router;
