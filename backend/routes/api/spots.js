@@ -202,18 +202,15 @@ router.get("/:spotId", async (req, res, next) => {
     include: [
       {
         model: Review,
-        subQuery: "false",
       },
       {
         model: SpotImage,
         attributes: ["id", "url"],
-        subQuery: "false",
       },
       {
         model: User,
         as: "Owner",
-        attributes: ["id", "firstName", "lastName"],
-        subQuery: "false",
+        attributes: ["id", "firstName", "lastName"]
       },
     ],
 
