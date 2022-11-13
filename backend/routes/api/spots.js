@@ -65,12 +65,12 @@ const validateReview = [
 
 const validateQueryParameters = [
   check("page")
-    .exists({ checkFalsy: true })
-    .isInt({ min: 0, max: 10 })
+    .optional().exists({ checkFalsy: true })
+    .optional().isInt({ min: 0, max: 10 })
     .withMessage("Page must be greater than or equal to 0"),
   check("size")
-    .exists({ checkFalsy: true })
-    .isInt({ min: 0, max: 20 })
+  .optional().exists({ checkFalsy: true })
+  .optional().isInt({ min: 0, max: 20 })
     .withMessage("Size must be greater than or equal to 0"),
   check("minLat")
     .optional().exists({ checkFalsy: true })
@@ -529,13 +529,14 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
 // ADD QUERY FILTERS TO GET ALL SPOTS
 
 router.get("/", validateQueryParameters, async (req, res, next) => {
+
   let page = req.query.page || 0;
   let size = req.query.size || 20;
 
   page = parseInt(page);
   size = parseInt(size);
 
-  console.log("#####", page)
+  // console.log("#####", page)
   const pagination = {};
 
   if (page >= 0 && page <= 10 && size >= 0 && size <= 20) {
