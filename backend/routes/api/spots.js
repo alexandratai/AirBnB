@@ -216,7 +216,6 @@ router.get("/:spotId", async (req, res, next) => {
     include: [
       {
         model: Review,
-        // subQuery: "false",
       },
       {
         model: SpotImage,
@@ -229,10 +228,7 @@ router.get("/:spotId", async (req, res, next) => {
       },
     ],
 
-    group: "Spots.id",
-    // require: "true",
-    // duplicating: "false",
-    // subQuery: "false",
+    // group: "Spots.id",
   });
 
   if (spot) {
