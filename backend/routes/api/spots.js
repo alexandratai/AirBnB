@@ -216,7 +216,7 @@ router.get("/:spotId", async (req, res, next) => {
     include: [
       {
         model: Review,
-        require: true,
+        require: "true",
       },
       {
         model: SpotImage,
