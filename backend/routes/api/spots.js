@@ -65,37 +65,53 @@ const validateReview = [
 
 const validateQueryParameters = [
   check("page")
-    .optional().exists({ checkFalsy: true })
-    .optional().isInt({ min: 0, max: 10 })
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isInt({ min: 0, max: 10 })
     .withMessage("Page must be greater than or equal to 0"),
   check("size")
-  .optional().exists({ checkFalsy: true })
-  .optional().isInt({ min: 0, max: 20 })
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isInt({ min: 0, max: 20 })
     .withMessage("Size must be greater than or equal to 0"),
   check("minLat")
-    .optional().exists({ checkFalsy: true })
-    .optional().isDecimal()
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isDecimal()
     .withMessage("Minimum latitude is invalid"),
   check("maxLat")
-    .optional().exists({ checkFalsy: true })
-    .optional().isDecimal()
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isDecimal()
     .withMessage("Maximum latitude is invalid"),
   check("minLng")
-    .optional().exists({ checkFalsy: true })
-    .optional().isDecimal()
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isDecimal()
     .withMessage("Minimum longitude is invalid"),
   check("maxLng")
-  .optional().exists({ checkFalsy: true })
-  .optional().isDecimal()
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isDecimal()
     .withMessage("Maximum longitude is invalid"),
   check("minPrice")
-  .optional().exists({ checkFalsy: true })
-  .optional().isDecimal()
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isDecimal()
     .isInt({ min: 0 })
     .withMessage("Minimum price must be greater than or equal to 0"),
   check("maxPrice")
-  .optional().exists({ checkFalsy: true })
-  .optional().isDecimal()
+    .optional()
+    .exists({ checkFalsy: true })
+    .optional()
+    .isDecimal()
     .isInt({ min: 0 })
     .withMessage("Maximum price must be greater than or equal to 0"),
   handleValidationErrors,
@@ -183,25 +199,32 @@ router.get("/:spotId", async (req, res, next) => {
         [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), "numReviews"],
       ],
       require: "true",
-    duplicating: "false"
+      duplicating: "false",
     },
     include: [
       {
         model: Review,
+        require: "true",
+        duplicating: "false",
       },
       {
         model: SpotImage,
         attributes: ["id", "url"],
+        require: "true",
+        duplicating: "false",
       },
       {
         model: User,
         as: "Owner",
         attributes: ["id", "firstName", "lastName"],
+        require: "true",
+        duplicating: "false",
       },
     ],
 
     group: "Spots.id",
-    
+    require: "true",
+    duplicating: "false",
   });
 
   if (spot) {
@@ -534,7 +557,6 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
 // ADD QUERY FILTERS TO GET ALL SPOTS
 
 router.get("/", validateQueryParameters, async (req, res, next) => {
-
   let page = req.query.page || 0;
   let size = req.query.size || 20;
 
@@ -569,8 +591,7 @@ router.get("/", validateQueryParameters, async (req, res, next) => {
     ...pagination,
   });
 
-  
-  return res.json({Spots: spots, page, size});
+  return res.json({ Spots: spots, page, size });
 });
 
 module.exports = router;
