@@ -166,7 +166,7 @@ router.get("/:spotId", async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.spotId, {
     attributes: {
       include: [
-        "id",
+        // "id",
         "ownerId",
         "address",
         "city",
