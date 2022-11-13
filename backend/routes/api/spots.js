@@ -539,7 +539,7 @@ router.get("/", validateQueryParameters, async (req, res, next) => {
   // console.log("#####", page)
   const pagination = {};
 
-  if (page >= 0 && page <= 10 && size >= 0 && size <= 20) {
+  if (page > 0 && page <= 10 && size >= 0 && size <= 20) {
     pagination.limit = size;
     pagination.offset = size * (page - 1);
   }
