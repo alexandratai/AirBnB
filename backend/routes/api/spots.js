@@ -198,33 +198,26 @@ router.get("/:spotId", async (req, res, next) => {
         [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"],
         [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), "numReviews"],
       ],
-      require: "true",
-      duplicating: "false",
     },
     include: [
       {
         model: Review,
-        require: "true",
-        duplicating: "false",
       },
       {
         model: SpotImage,
         attributes: ["id", "url"],
-        require: "true",
-        duplicating: "false",
       },
       {
         model: User,
         as: "Owner",
-        attributes: ["id", "firstName", "lastName"],
-        require: "true",
-        duplicating: "false",
+        attributes: ["id", "firstName", "lastName"]
       },
     ],
 
     group: "Spots.id",
-    require: "true",
-    duplicating: "false",
+    // require: "true",
+    // duplicating: "false",
+    subQuery: false,
   });
 
   if (spot) {
