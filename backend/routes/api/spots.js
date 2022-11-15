@@ -225,7 +225,7 @@ router.get("/:spotId", async (req, res, next) => {
     let count = 0;
     for (let i = 0; i < total; i++) {
       const review = spot.dataValues.Reviews[i];
-      count += review.stars;
+      count += parseInt(review.stars);
     };
 
     spot.dataValues.avgStarRating = count / total;
