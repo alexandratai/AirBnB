@@ -223,7 +223,7 @@ router.get("/:spotId", async (req, res, next) => {
     spot.dataValues.numReviews = total;
 
     const sum = spot.dataValues.Reviews.reduce((prev, current) => {
-      return prev + current.stars;
+      return prev + current.dataValues.stars;
     }, 0);
 
     spot.dataValues.avgStarRating = total / sum;
