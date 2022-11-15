@@ -197,22 +197,6 @@ router.get("/:spotId", async (req, res, next) => {
         "updatedAt",
         // [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"],
         // [Sequelize.fn("COUNT", Sequelize.col("Reviews.review")), "numReviews"],
-        [
-					Sequelize.literal(
-						`(SELECT COUNT(Reviews.id) FROM Spots
-            JOIN Reviews ON Spots.id = Reviews.spotId
-          WHERE spotId = ${req.params.spotId})`
-					),
-					"totalReviews",
-				],
-				[
-					Sequelize.literal(
-						`(SELECT AVG(Reviews.stars) FROM Spots
-            JOIN Reviews ON Spots.id = Reviews.spotId
-          WHERE spotId = ${req.params.spotId})`
-					),
-					"averageStars",
-				],
       ],
     },
     include: [
@@ -235,12 +219,22 @@ router.get("/:spotId", async (req, res, next) => {
   });
 
   if (spot) {
+    const total = spot.dataValues.Reviews.length;
+    spot.dataValues.numReviews = total;
+
+    const sum = spot.dataValues.Reviews.reduce((prev, current) => {
+      return prev + current.stars;
+    }, 0);
+
+    spot.dataValues.avgStarRating = sum / total;
+
     return res.json(spot);
   } else {
     const err = new Error("Spot couldn't be found");
     err.status = 404;
     return next(err);
   }
+
 });
 
 router.put("/:spotId", requireAuth, validateSpot, async (req, res, next) => {
