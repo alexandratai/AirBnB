@@ -56,7 +56,6 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
       url,
     });
 
-    delete newImage.dataValues.reviewId;
     delete newImage.dataValues.createdAt;
     delete newImage.dataValues.updatedAt;
 
