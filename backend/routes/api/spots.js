@@ -228,7 +228,7 @@ router.get("/:spotId", async (req, res, next) => {
       count += review.stars;
     };
 
-    spot.dataValues.avgStarRating = total / count;
+    spot.dataValues.avgStarRating = count / total;
 
     return res.json(spot);
   } else {
