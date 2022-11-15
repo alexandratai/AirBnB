@@ -229,7 +229,9 @@ router.get("/:spotId", async (req, res, next) => {
     };
 
     spot.dataValues.avgStarRating = count / total;
-
+    // console.log("########", count);
+    // console.log('########', total)
+    spot.dataValues.pleaseWork = [count, total]
     return res.json(spot);
   } else {
     const err = new Error("Spot couldn't be found");
