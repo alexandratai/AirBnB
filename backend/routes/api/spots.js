@@ -222,11 +222,13 @@ router.get("/:spotId", async (req, res, next) => {
     const total = spot.dataValues.Reviews.length;
     spot.dataValues.numReviews = total;
 
-    const sum = spot.dataValues.Reviews.reduce((prev, current) => {
-      return prev + current.dataValues.stars;
-    }, 0);
+    let count = 0;
+    for (let i = 0; i < total; i++) {
+      const review = spot.dataValues.Reviews[i];
+      count += review.stars;
+    };
 
-    spot.dataValues.avgStarRating = total / sum;
+    spot.dataValues.avgStarRating = total / count;
 
     return res.json(spot);
   } else {
