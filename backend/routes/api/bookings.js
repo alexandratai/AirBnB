@@ -35,17 +35,18 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
   const endDateObj = new Date(endDate);
   let today = new Date();
 
-  // Can't edit a booking that's past the end date
-  if (today > booking.endDate) {
-    const err = new Error("Past bookings can't be modified");
-    err.status = 403;
-    return next(err);
-  }
-
-  // Couldn't find a Booking with the specified id
+  
+  // Couldn't find a Booking with the specified id #####
   if (!booking) {
     const err = new Error("Booking couldn't be found");
     err.status = 404;
+    return next(err);
+  }
+  
+  // Can't edit a booking that's past the end date
+  if (booking && (today > booking.endDate)) {
+    const err = new Error("Past bookings can't be modified");
+    err.status = 403;
     return next(err);
   }
 
@@ -94,6 +95,13 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
 router.delete("/:bookingId", requireAuth, async (req, res, next) => {
   const currentUser = req.user.id;
   const doomedBooking = await Booking.findByPk(req.params.bookingId);
+  
+  if (!doomedBooking) {
+    const err = new Error("Booking couldn't be found");
+    err.status = 404;
+    return next(err);
+  };
+
   const spot = await Spot.findOne({
     where: {
       id: doomedBooking.spotId,
@@ -101,21 +109,16 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
   });
 
   const today = new Date();
-
+  
+  
   // Bookings that have been started can't be deleted
   // Check if the current date is > start date ^
-  if (today > doomedBooking.startDate) {
+  if (doomedBooking && (today > doomedBooking.startDate)) {
     const err = new Error("Bookings that have been started can't be deleted");
     err.status = 403;
     return next(err);
   }
 
-  if (!doomedBooking) {
-    const err = new Error("Booking couldn't be found");
-    err.status = 404;
-    return next(err);
-  };
-  
   
   if (doomedBooking && (doomedBooking.userId === currentUser || spot.ownerId === currentUser)) {
     await doomedBooking.destroy();
