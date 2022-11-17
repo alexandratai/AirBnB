@@ -14,12 +14,23 @@ const {
 } = require("../../db/models");
 
 const { check } = require("express-validator");
-const { handleValidationErrors, validateReviews } = require("../../utils/validation");
+const { handleValidationErrors } = require("../../utils/validation");
 const review = require("../../db/models/review");
 const user = require("../../db/models/user");
 const { route } = require("./users");
 
 const router = express.Router();
+
+const validateReviews = [
+  check("review")
+    .exists({ checkFalsy: true })
+    .withMessage("Review text is required"),
+  check("stars")
+    .exists({ checkFalsy: true })
+    .isInt({ min: 1, max: 5 })
+    .withMessage("Stars must be an integer from 1 to 5"),
+  handleValidationErrors,
+];
 
 // Add an Image to a Review based on the Review's Id
 router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
