@@ -395,8 +395,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
         { startDate: { [Op.between]: [startDateObj, endDateObj] } },
         { endDate: { [Op.between]: [startDateObj, endDateObj] } },
         {[Op.and]: [
-          { startDate: { [Op.lt]: startDate } },
-          { endDate: { [Op.gt]: endDate } },
+          { startDate: { [Op.lt]: startDateObj } },
+          { endDate: { [Op.gt]: endDateObj } },
         ]},
       ],
     },
