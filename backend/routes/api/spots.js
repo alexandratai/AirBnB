@@ -394,6 +394,10 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
       [Op.or]: [
         { startDate: { [Op.between]: [startDateObj, endDateObj] } },
         { endDate: { [Op.between]: [startDateObj, endDateObj] } },
+        {[Op.and]: [
+          { startDate: { [Op.lt]: startDate } },
+          { endDate: { [Op.gt]: endDate } },
+        ]},
       ],
     },
   });
@@ -434,12 +438,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     return res.json(newBooking);
   }
 
-  if (
-    currentBookings &&
-    (currentBookings.dataValues.startDate.valueOf() ===
-      startDateObj.valueOf() ||
-      currentBookings.dataValues.endDate.valueOf() === endDateObj.valueOf())
-  ) {
+  if (currentBookings) {
     const err = new Error(
       "Sorry, this spot is already booked for the specified dates"
     );
