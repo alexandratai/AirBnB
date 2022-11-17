@@ -146,5 +146,6 @@ module.exports = {
   validateReview,
   validateReviews,
   validateQueryParameters,
-  validateSpot
+  validateSpot,
+  validateSignup
 };
