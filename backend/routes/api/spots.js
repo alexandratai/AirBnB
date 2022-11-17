@@ -409,7 +409,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
 
   // console.log("CURRENT BOOKINGS", currentBookings);
 
-  if (spot === null || !spot) {
+  if (spot === null) {
     const err = new Error("Spot couldn't be found");
     err.status = 404;
     return next(err);
