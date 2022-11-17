@@ -410,7 +410,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  if (spot.ownerid === currentUser) {
+  if (spot.ownerId === currentUser) {
     const err = new Error(
       "Sorry, you cannot book this spot because you own this spot"
     );
