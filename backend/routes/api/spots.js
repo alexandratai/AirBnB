@@ -319,7 +319,12 @@ router.post(
       return next(err);
     }
 
-    const existingReview = await Review.findByPk(req.params.spotId);
+    const existingReview = await Review.findOne({
+      where: {
+        spotId: req.params.spotId,
+        userId
+      }
+    });
 
     if (existingReview && existingReview.userId === userId) {
       const err = new Error("User already has a review for this spot");
