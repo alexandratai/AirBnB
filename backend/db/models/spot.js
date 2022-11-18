@@ -92,8 +92,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    require: "true",
-    duplicating: "false"
   
   });
   return Spot;

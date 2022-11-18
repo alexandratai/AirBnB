@@ -83,7 +83,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /sessions/login
+  * URL: /session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -150,7 +150,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /sessions/signup
+  * URL: /users
   * Headers:
     * Content-Type: application/json
   * Body:
