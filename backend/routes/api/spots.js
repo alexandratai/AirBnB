@@ -407,8 +407,6 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     },
   });
 
-  // console.log("CURRENT BOOKINGS", currentBookings);
-
   if (spot === null) {
     const err = new Error("Spot couldn't be found");
     err.status = 404;
@@ -568,7 +566,6 @@ router.get("/", validateQueryParameters, async (req, res, next) => {
   page = parseInt(page);
   size = parseInt(size);
 
-  // console.log("#####", page)
   const pagination = {};
 
   if (page > 0 && page <= 10 && size >= 0 && size <= 20) {
