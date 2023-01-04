@@ -145,6 +145,8 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
   return res.json(newSpot);
 });
 
+// ADD IMAGE TO SPOT BASED ON SPOT ID?
+
 router.post("/:spotId/images", requireAuth, async (req, res, next) => {
   const defaultValue = {
     ownerId: -1,
