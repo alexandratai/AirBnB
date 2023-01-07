@@ -57,10 +57,10 @@ const SpotInformation = () => {
           {currentOwner && (
             <button onClick={() => setShowModal(true)}>Delete Spot</button>
           )}
-          {/* <div>{reviewsArr.length > 0 && reviewsArr.map(review => {
+          <div>{reviewsArr.length > 0 && reviewsArr.map(review => {
             return <ReviewCard review={review} />
-          })}</div>  */}
-          <div><ReviewCard spot={spot} /></div>
+          })}</div> 
+          {/* <div><ReviewCard spot={spot} /></div> */}
 
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
