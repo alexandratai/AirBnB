@@ -1,14 +1,18 @@
-import "./CreateSpotForm.css";
+import "./EditSpotForm.css";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { allSpots } from "../../store/spots";
-import { makeSpot } from "../../store/spots";
+import { editSpotThunk } from "../../store/spots";
+import { useParams } from "react-router-dom";
 
-const CreateSpotForm = () => {
+const EditSpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
+  const { spotId } = useParams();
+  const spotChange = useSelector((state) => state.spots.id);
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -20,7 +24,21 @@ const CreateSpotForm = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [price, setPrice] = useState(0);
   const [state, setState] = useState("");
-  // const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (spotChange) {
+      setAddress(spotChange.address);
+      setCity(spotChange.city);
+      setCountry(spotChange.country);
+      setDescription(spotChange.description);
+      setLat(spotChange.lat);
+      setLng(spotChange.lng);
+      setName(spotChange.name);
+      setPreviewImage(spotChange.previewImage);
+      setPrice(spotChange.price);
+      setState(spotChange.state);
+    }
+  }, [spotChange])
 
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
@@ -41,6 +59,7 @@ const CreateSpotForm = () => {
     e.preventDefault();
 
     const payload = {
+      id: spotId,
       address,
       city,
       country,
@@ -53,16 +72,16 @@ const CreateSpotForm = () => {
       state,
     };
 
-    let createdSpot = await dispatch(makeSpot(payload));
-    if (createdSpot) {
-      history.push(`/spots/${createdSpot.id}`);
+    let editedSpot = await dispatch(editSpotThunk(payload));
+    if (editedSpot) {
+      history.push(`/spots/${editedSpot.id}`);
     }
   };
 
   return sessionUser.id ? (
     <section>
       <form onSubmit={handleSubmit}>
-        <label className="spot-form">Create a Spot:</label>
+        <label className="spot-form">Edit this Spot:</label>
         <br></br>
         <input
           required
@@ -147,11 +166,11 @@ const CreateSpotForm = () => {
           onChange={updatePrice}
         />
 
-        <button type="submit">Create New Spot</button>
+        <button type="submit">Edit New Spot</button>
       </form>
     </section>
   ) :
   null;
 };
 
-export default CreateSpotForm;
+export default EditSpotForm;

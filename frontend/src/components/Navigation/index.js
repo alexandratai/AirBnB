@@ -9,7 +9,7 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
-  if (sessionUser) {
+  if (sessionUser.id) {
     sessionLinks = (
       <ProfileButton user={sessionUser} />
     );
@@ -24,7 +24,7 @@ function Navigation({ isLoaded }){
 
   return (
     <ul>
-      <li>
+      <li className="nav-bar">
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
