@@ -1,4 +1,4 @@
-import { allSpots } from "../../store/spots";
+import { allSpotsThunk } from "../../store/spots";
 import { useSelector, useDispatch } from "react-redux";
 import SpotCard from "../SpotCard";
 import './SpotGrid.css';
@@ -13,7 +13,7 @@ const SpotGrid = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(allSpots()).then(() => setIsLoaded(true))
+        dispatch(allSpotsThunk()).then(() => setIsLoaded(true))
     }, [dispatch])
 
     return (

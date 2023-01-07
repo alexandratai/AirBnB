@@ -33,7 +33,15 @@ const deleteSpot = (spotId) => {
   };
 };
 
-export const makeSpot = (spot) => async (dispatch) => {
+export const allSpotsThunk = () => async (dispatch) => {
+  // Thunk
+  const response = await csrfFetch("/api/spots");
+  const data = await response.json();
+  dispatch(getSpots(data.Spots));
+  return response;
+};
+
+export const makeSpotThunk = (spot) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -45,14 +53,6 @@ export const makeSpot = (spot) => async (dispatch) => {
     dispatch(addSpot(newSpot));
     return newSpot;
   }
-};
-
-export const allSpots = () => async (dispatch) => {
-  // Thunk
-  const response = await csrfFetch("/api/spots");
-  const data = await response.json();
-  dispatch(getSpots(data.Spots));
-  return response;
 };
 
 export const editSpotThunk = (spot) => async (dispatch) => {

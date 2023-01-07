@@ -31,7 +31,7 @@ const SpotCard = ({ spot }) => {
   return (
     <div className="spot-card">
       <div>{spot.name}</div>
-      <img src={spot.previewImage} alt="img" className="preview-image" />
+      {/* <img src={spot.previewImage} alt="img" className="preview-image" /> */}
       <br></br>
       <button onClick={spotInfo}>See Spot Info</button>
       {currentOwner && <button onClick={editSpotInfo}>Edit Spot</button>}

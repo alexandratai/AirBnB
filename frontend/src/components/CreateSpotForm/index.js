@@ -2,13 +2,13 @@ import "./CreateSpotForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { allSpots } from "../../store/spots";
-import { makeSpot } from "../../store/spots";
+import { allSpotsThunk } from "../../store/spots";
+import { makeSpotThunk } from "../../store/spots";
 
 const CreateSpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector(state => state.session.user);
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -34,7 +34,7 @@ const CreateSpotForm = () => {
   const updateState = (e) => setState(e.target.value);
 
   useEffect(() => {
-    dispatch(allSpots());
+    dispatch(allSpotsThunk());
   }, [dispatch]);
 
   const handleSubmit = async (e) => {
@@ -53,7 +53,7 @@ const CreateSpotForm = () => {
       state,
     };
 
-    let createdSpot = await dispatch(makeSpot(payload));
+    let createdSpot = await dispatch(makeSpotThunk(payload));
     if (createdSpot) {
       history.push(`/spots/${createdSpot.id}`);
     }

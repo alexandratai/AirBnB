@@ -1,7 +1,7 @@
 import "./SpotPage.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { allSpots } from "../../store/spots";
+import { allSpotsThunk } from "../../store/spots";
 import SpotGrid from "../SpotGrid";
 
 const SpotPage = () => {
@@ -9,7 +9,7 @@ const SpotPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(allSpots()).then(() => setIsLoaded(true));
+        dispatch(allSpotsThunk()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
     return (

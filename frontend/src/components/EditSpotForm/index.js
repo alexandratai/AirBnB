@@ -3,7 +3,7 @@ import "./EditSpotForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { allSpots } from "../../store/spots";
+import { allSpotsThunk } from "../../store/spots";
 import { editSpotThunk } from "../../store/spots";
 import { useParams } from "react-router-dom";
 
@@ -52,7 +52,7 @@ const EditSpotForm = () => {
   const updateState = (e) => setState(e.target.value);
 
   useEffect(() => {
-    dispatch(allSpots());
+    dispatch(allSpotsThunk());
   }, [dispatch]);
 
   const handleSubmit = async (e) => {
