@@ -125,7 +125,7 @@ const validateQueryParameters = [
 router.post("/", requireAuth, validateSpot, async (req, res, next) => {
   const ownerId = req.user.id;
 
-  const { address, city, state, country, lat, lng, name, description, price } =
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } =
     req.body;
 
   const newSpot = await Spot.create({
@@ -139,6 +139,7 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
     name,
     description,
     price,
+    previewImage
   });
 
   res.status(201);
@@ -247,10 +248,10 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res, next) => {
   };
 
   const spot =
-    (await Spot.scope("noPreviewImage").findByPk(req.params.spotId)) ||
+    (await Spot.findByPk(req.params.spotId)) ||
     defaultValue;
   const ownerId = req.user.id;
-  const { address, city, state, country, lat, lng, name, description, price } =
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } =
     req.body;
 
   if (spot.ownerId === req.user.id) {
@@ -292,6 +293,10 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res, next) => {
 
     if (price) {
       spot.price = price;
+    }
+
+    if (previewImage) {
+      spot.previewImage = previewImage;
     }
 
     spot.save();

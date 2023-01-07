@@ -1,0 +1,9 @@
+.text {
+    font-family: Arial
+}
+
+.image {
+    height: 200px;
+    width: 340px;
+    border-radius: 10px; 
+}

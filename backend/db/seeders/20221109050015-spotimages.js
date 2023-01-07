@@ -13,11 +13,11 @@ module.exports = {
 
     await queryInterface.bulkInsert(options, [
       {
-        url: "www.greatSpot.io",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-755137040389728919/original/22ae9ca7-aa3c-47f0-9f7e-d22c40270db5.jpeg?im_w=1200",
         spotId: 1
       },
       {
-        url: "www.greatSpot2.io",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-45868372/original/8a8e1ba3-0ddc-4032-965a-5370b45c6de6.jpeg?im_w=1200",
         spotId: 2
       },
     ], {});

@@ -23,7 +23,7 @@ module.exports = {
         name: "Demo",
         description: "A very nice spot",
         price: 100,
-        previewImage: "www.demo-house.io"
+        previewImage: "https://media.architecturaldigest.com/photos/56f9add368aa959e79f353ec/master/w_2240%2Cc_limit/beach-houses-10.jpg"
       },
       {
         ownerId: 2,
@@ -36,7 +36,7 @@ module.exports = {
         name: "Yay",
         description: "A very cool spot",
         price: 150,
-        previewImage: "www.other-demo.io"
+        previewImage: "https://media.architecturaldigest.com/photos/56f9adcd68aa959e79f353df/master/w_2240%2Cc_limit/beach-houses-03.jpg"
       },
       {
         ownerId: 3,
@@ -49,7 +49,7 @@ module.exports = {
         name: "Yay",
         description: "A very cool spot",
         price: 152,
-        previewImage: "www.other-demos.io"
+        previewImage: "https://media.architecturaldigest.com/photos/56f9add115f605c343d44fd9/master/w_2240%2Cc_limit/beach-houses-08.jpg"
       },
     ], {});
   },

@@ -13,11 +13,11 @@ module.exports = {
 
     await queryInterface.bulkInsert(options, [
       {
-        url: "www.really-great-photo.io",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-45868372/original/d300da5c-054f-432b-b818-750803160cfc.jpeg?im_w=1200",
         reviewId: 1
       },
       {
-        url: "www.very-good-photo.io",
+        url: "https://a0.muscache.com/im/pictures/06e29af9-7ae8-47a9-949e-126983c59f88.jpg?im_w=1200",
         reviewId: 2
       },
     ], {});

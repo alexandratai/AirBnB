@@ -80,18 +80,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
-    // defaultScope: {
-    //   attributes: {
-    //     exclude: [ 'createdAt', 'updatedAt' ]
+    // scopes: {
+    //   noPreviewImage: {
+    //     attributes: {
+    //       exclude: [ 'previewImage' ]
+    //     }
     //   }
-    // }
-    scopes: {
-      noPreviewImage: {
-        attributes: {
-          exclude: [ 'previewImage' ]
-        }
-      }
-    },
+    // },
   
   });
   return Spot;
