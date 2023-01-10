@@ -17,9 +17,9 @@ const SpotGrid = () => {
     }, [dispatch])
 
     return (
-        <div>
+        <div className="spot-grid">
             {spotsArr.length > 0 && spotsArr.map(spot => { // If spots.length > 0 THEN spots.map
-                return <SpotCard key={spot.id} spot={spot}/>
+                return <SpotCard className="spot-card" key={spot.id} spot={spot}/>
             })}
         </div>
     )

@@ -98,7 +98,7 @@ const spotReducer = (state = initialState, action) => {
       newState[action.spot.id] = action.spot;
       return newState;
     case DELETE_SPOT:
-      delete newState[action.spotId]
+      delete newState[action.spotId];
       return newState;
     default:
       return state;

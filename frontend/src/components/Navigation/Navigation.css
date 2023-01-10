@@ -1,4 +1,21 @@
 .nav-bar {
     font-family: Arial;
     font-size: 11pt;
+    text-decoration: none;
+    list-style-type:none;
 }
+
+.profile-dropdown {
+    list-style-type:none;
+    margin: 10px 0 10px 0;
+    width: 200px; 
+    display: block;
+}
+
+.profile-dropdown {
+    list-style-type:none;
+    margin: 10px 0 10px 0;
+    width: 200px; 
+    display: block;
+}
+

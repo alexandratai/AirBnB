@@ -10,13 +10,25 @@ import ReviewCard from "../ReviewCard";
 import { allReviewsBySpotIdThunk } from "../../store/reviews";
 
 const SpotInformation = () => {
-  const { spotId } = useParams();
-  const spot = useSelector((state) => state.spots[spotId]);
   const dispatch = useDispatch();
   const history = useHistory();
+  const { spotId } = useParams();
+  const spot = useSelector((state) => state.spots[spotId]);
+  const reviewsObj = useSelector((state) => state.reviews);
+  const reviewsArr = Object.values(reviewsObj);
+  const sessionUser = useSelector((state) => state.session.user);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  let currentOwner = false;
+  if (spot && sessionUser.id) {
+    currentOwner = sessionUser.id === spot.ownerId;
+  };
+
+  const userReview = reviewsArr.filter(review => {
+    return review.userId === sessionUser.id
+  });
 
   const editSpotInfo = () => {
     history.push(`/spots/${spot.id}/edit`);
@@ -28,6 +40,10 @@ const SpotInformation = () => {
     history.push(`/`);
   };
 
+  const createReview = () => {
+    history.push(`/spots/${spotId}/reviews/create`)
+  }
+
   useEffect(() => {
     dispatch(allSpotsThunk()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -36,31 +52,24 @@ const SpotInformation = () => {
     dispatch(allReviewsBySpotIdThunk(spotId));
   }, [dispatch]);
 
-  const sessionUser = useSelector((state) => state.session.user);
-  const reviewsObj = useSelector((state) => state.reviews)
-  const reviewsArr = Object.values(reviewsObj)
-  const currentOwner = sessionUser.id === spot.ownerId;
-
-  console.log("REVIEWSOBJ", reviewsObj)
-  console.log("REVIEWSARR", reviewsArr)
-  console.log("spot here", spot)
-
   return (
     <div>
       {spot && (
         <>
           <h1 className="text">{spot.name}</h1>
           <h2 className="text">{spot.address}</h2>
-          {/* <img src={spot.previewImage} alt="img" className="image" /> */}
+          <img src={spot.previewImage} alt="img" className="image" />
           <p className="text">{spot.description}</p>
           {currentOwner && <button onClick={editSpotInfo}>Edit Spot</button>}
           {currentOwner && (
             <button onClick={() => setShowModal(true)}>Delete Spot</button>
           )}
-          <div>{reviewsArr.length > 0 && reviewsArr.map(review => {
-            return <ReviewCard review={review} />
-          })}</div> 
-          {/* <div><ReviewCard spot={spot} /></div> */}
+          {(!currentOwner && userReview.length < 1) && <button onClick={createReview}>Write Review</button>}
+
+          {reviewsArr.length > 0 &&
+            reviewsArr.map((review) => {
+                return <ReviewCard key={review.id} review={review} />;
+            })}
 
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>

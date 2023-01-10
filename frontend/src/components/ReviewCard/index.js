@@ -1,38 +1,46 @@
 import "./ReviewCard.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { allReviewsBySpotIdThunk } from "../../store/reviews";
+import { deleteReviewThunk } from "../../store/reviews";
+import { Modal } from "../../context/Modal";
+import { useState } from "react";
 
 const ReviewCard = ({ review }) => {
   const history = useHistory();
   const { spotId } = useParams();
+  const sessionUser = useSelector((state) => state.session.user);
+  const sessionReviewsObj = useSelector((state) => state.reviews);
+  const sessionReviewsArr = Object.values(sessionReviewsObj);
+  const reviews = sessionReviewsArr.find(review => review.userId === sessionUser.id);
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  const reviewInfo = () => {
-    history.push(`/spots/${spotId}/reviews`);
-  };
+  const [showModal, setShowModal] = useState(false);
 
-  const sessionSpot = useSelector((state) => state.session.spots);
-  const currentSpotReviews = sessionSpot.id === review.spotId;
+  const editReviewInfo = () => {
+    history.push(`/spots/${spotId}/reviews/${reviews.id}/edit`)
+  }
 
-  useEffect(() => {
-    dispatch(allReviewsBySpotIdThunk(sessionSpot)).then(() => setIsLoaded(true))
-  }, [dispatch])
-
-// const spot = useSelector(state => state.spots(spotId));
-// const review = useSelector(state => Object.values(state.reviews))
-
-// useEffect(() => {
-//     dispatch(allReviewsBySpotIdThunk(spotId)).then(() => setIsLoaded(true))
-// }, [dispatch])
+  const deleteReview = (e) => {
+    e.preventDefault();
+    dispatch(deleteReviewThunk(review));
+    history.push(`/spots/${spotId}`);
+  }
 
   return (
-    <div>
-      <h1>AAAAAAAAAAAA</h1>
-    </div>
+    <>
+      <div className="review">{review.review}</div>
+      <div className="review-stars">{review.stars}</div>
+      {(review.userId === sessionUser.id) && <button onClick={editReviewInfo}>Edit Review</button>}
+      {(review.userId === sessionUser.id) && <button onClick={() => setShowModal(true)}>Delete Review</button>}
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <p className="pop-up">Are you sure you want to delete this review?</p>
+          <button className="pop-up-button" onClick={deleteReview}>Delete</button>
+          <button onClick={() => setShowModal(false)}>Cancel</button>
+        </Modal>
+      )}
+    </>
   )
 };
 

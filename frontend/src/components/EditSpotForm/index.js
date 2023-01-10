@@ -2,19 +2,18 @@ import "./EditSpotForm.css";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { allSpotsThunk } from "../../store/spots";
 import { editSpotThunk } from "../../store/spots";
-import { useParams } from "react-router-dom";
 
 const EditSpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const { spotId } = useParams();
-  const spotChange = useSelector((state) => state.spots.id);
+  const spotChange = useSelector((state) => state.spots[spotId]);
 
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState();
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [description, setDescription] = useState("");

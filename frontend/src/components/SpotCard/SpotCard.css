@@ -1,11 +1,17 @@
 .spot-card {
     font-family: Arial;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 .preview-image {
     height: 200px;
     width: 340px;
     border-radius: 10px; 
+}
+
+.text {
+    text-align: center;
 }
 
 .pop-up {

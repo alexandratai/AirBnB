@@ -1,44 +1,54 @@
-import "./CreateReviewForm.css";
+import "./EditReviewForm.css";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { allReviewsBySpotIdThunk } from "../../store/reviews";
-import { makeReviewThunk } from "../../store/reviews";
-import { useParams } from "react-router-dom";
+import { editReviewThunk } from "../../store/reviews";
 
-const CreateReviewForm = () => {
+const EditReviewForm = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { spotId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
+  const { spotId, reviewId } = useParams();
+  const reviewChange = useSelector((state) => state.reviews[reviewId]);
+  const history = useHistory();
 
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState([]);
 
-  const updateReview = (e) => setReview(e.target.value);
-  const updateStars = (e) => setStars(e.target.value);
+  useEffect(() => {
+    dispatch(allReviewsBySpotIdThunk(reviewId));
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(allReviewsBySpotIdThunk(spotId));
-  }, [dispatch]);
+    if (reviewChange) {
+      setReview(reviewChange.review);
+      setStars(reviewChange.stars);
+    }
+  }, [reviewChange]);
+
+  const updateReview = (e) => setReview(e.target.value);
+  const updateStars = (e) => setStars(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
+      id: reviewId,
       review,
       stars,
     };
 
-    let createdReview = await dispatch(makeReviewThunk(spotId, payload))
-    .catch(async (response) => {
-      const data = await response.json();
-      return setErrors([data.message])
-    });
+    let editedReview = await dispatch(editReviewThunk(payload)).catch(
+      async (response) => {
+        const data = await response.json();
+        return setErrors([data.message]);
+      }
+    );
 
-    if (createdReview) {
-      history.push(`/spots/${spotId}`)
+    if (editedReview) {
+      history.push(`/spots/${spotId}`);
     }
   };
 
@@ -50,7 +60,7 @@ const CreateReviewForm = () => {
             <li key={index}>{error}</li>
           ))}
         </ul>
-        <label className="review-form">Create a Review:</label>
+        <label className="review-form">Edit Your Review For This Spot:</label>
         <br></br>
         <input
           required
@@ -69,10 +79,10 @@ const CreateReviewForm = () => {
           max="5"
         />
 
-        <button type="submit">Create New Review</button>
+        <button type="submit">Edit Review</button>
       </form>
     </section>
   ) : null;
 };
 
-export default CreateReviewForm;
+export default EditReviewForm;

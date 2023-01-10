@@ -8,6 +8,8 @@ import { Modal } from "../../context/Modal";
 const SpotCard = ({ spot }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
+  const currentOwner = sessionUser.id === spot.ownerId;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -25,17 +27,19 @@ const SpotCard = ({ spot }) => {
     history.push(`/spots/${spot.id}/edit`)
   };
 
-  const sessionUser = useSelector((state) => state.session.user);
-  const currentOwner = sessionUser.id === spot.ownerId;
+  // const createReview = () => {
+  //   history.push(`/spots/${spot.id}/reviews/create`)
+  // }
 
   return (
     <div className="spot-card">
-      <div>{spot.name}</div>
-      {/* <img src={spot.previewImage} alt="img" className="preview-image" /> */}
+      <div className="text">{spot.name}</div>
+      <img src={spot.previewImage} alt="img" className="preview-image" />
       <br></br>
-      <button onClick={spotInfo}>See Spot Info</button>
-      {currentOwner && <button onClick={editSpotInfo}>Edit Spot</button>}
-      {currentOwner && <button onClick={() => setShowModal(true)}>Delete Spot</button>}
+      <button className="button" onClick={spotInfo}>View Spot</button>
+      {currentOwner && <button className="button" onClick={editSpotInfo}>Edit Spot</button>}
+      {currentOwner && <button className="button" onClick={() => setShowModal(true)}>Delete Spot</button>}
+      {/* {(!currentOwner && sessionUser.id) && <button onClick={createReview}>Write Review</button>} */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <p className="pop-up">Are you sure you want to delete this spot?</p>
