@@ -40,8 +40,8 @@ export const allReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
   return response;
 };
 
-export const makeReviewThunk = (review) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${review}/reviews`, {
+export const makeReviewThunk = (spot, review) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spot.id}/reviews`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(review),

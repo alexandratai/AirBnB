@@ -18,7 +18,7 @@ const EditReviewForm = () => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    dispatch(allReviewsBySpotIdThunk(reviewId));
+    dispatch(allReviewsBySpotIdThunk(spotId));
   }, [dispatch]);
 
   useEffect(() => {
