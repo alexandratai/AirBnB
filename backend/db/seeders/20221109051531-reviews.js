@@ -15,13 +15,13 @@ module.exports = {
       {
         userId: 1,
         spotId: 1,
-        review: "Very nice",
+        review: "A once in a lifetime experience.",
         stars: 5
       },
       {
         userId: 2,
         spotId: 1,
-        review: "It's alright",
+        review: "I thought it was okay. Terrible cell reception.",
         stars: 3
       },
     ], {});

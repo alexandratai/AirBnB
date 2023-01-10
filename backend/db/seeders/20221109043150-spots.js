@@ -14,42 +14,42 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         ownerId: 1,
-        address: "100 Demo Road",
-        city: "Demo Town",
+        address: "100 Seasonal Lane",
+        city: "Mammoth Lakes",
         state: "California",
         country: "United States",
         lat: 1000,
         lng: 2000,
-        name: "Demo",
-        description: "A very nice spot",
+        name: "Mountainside Retreat",
+        description: "Experience the convenience, craftsmanship, and tranquil ambiance of Mountainside, located directly across the street from Canyon Lodge.",
         price: 100,
-        previewImage: "https://media.architecturaldigest.com/photos/56f9add368aa959e79f353ec/master/w_2240%2Cc_limit/beach-houses-10.jpg"
+        previewImage: "https://a0.muscache.com/im/pictures/e4d0922e-03d1-4194-808a-0d1609186e29.jpg?im_w=960"
       },
       {
         ownerId: 2,
-        address: "300 Demo Road",
-        city: "Demo City",
-        state: "New York",
-        country: "United States",
+        address: "300 Ibuku Road",
+        city: "Abiansemal",
+        state: "Bali",
+        country: "Indonesia",
         lat: 3000,
         lng: 4000,
-        name: "Yay",
-        description: "A very cool spot",
+        name: "Bamboo House",
+        description: "A beautiful bamboo house built on the west bank of the River Ayung.",
         price: 150,
-        previewImage: "https://media.architecturaldigest.com/photos/56f9adcd68aa959e79f353df/master/w_2240%2Cc_limit/beach-houses-03.jpg"
+        previewImage: "https://a0.muscache.com/im/pictures/e25a9b25-fa98-4160-bfd1-039287bf38b6.jpg?im_w=720"
       },
       {
         ownerId: 3,
-        address: "301 Demo Road",
-        city: "Demo City",
-        state: "New York",
+        address: "301 Kellogg Lane",
+        city: "Joshua Tree",
+        state: "California",
         country: "United States",
         lat: 3010,
         lng: 4001,
-        name: "Yay",
-        description: "A very cool spot",
+        name: "The Kellogg Estate",
+        description: "The Kellogg Estate is one of the most exclusive homes in the world.",
         price: 152,
-        previewImage: "https://media.architecturaldigest.com/photos/56f9add115f605c343d44fd9/master/w_2240%2Cc_limit/beach-houses-08.jpg"
+        previewImage: "https://a0.muscache.com/im/pictures/1f6c495e-b877-4a48-9f2c-d8012f640166.jpg?im_w=960"
       },
     ], {});
   },

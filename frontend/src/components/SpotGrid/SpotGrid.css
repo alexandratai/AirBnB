@@ -2,20 +2,12 @@
     display: grid;
     grid-template-columns: repeat(3, 400px);
     justify-content: space-between;
-    margin: 0 auto;
+    width: 300px;
 }
 
 .spot-card {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    /* grid-template-rows: 2fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr; */
-    border: 1px solid black;
-    /*COMMENT BORDER OUT LATER*/
     font-family: Arial;
     font-size: 11pt;
-    min-width: auto;
-    max-width: 90%;
+    width: fit-content;
     min-height: auto;
 }

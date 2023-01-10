@@ -17,7 +17,7 @@ module.exports = {
         reviewId: 1
       },
       {
-        url: "https://a0.muscache.com/im/pictures/06e29af9-7ae8-47a9-949e-126983c59f88.jpg?im_w=1200",
+        url: "https://a0.muscache.com/im/pictures/miso/Hosting-582573931021615910/original/93cba8f8-f489-4f1c-83c1-246faae34ff3.jpeg?im_w=720",
         reviewId: 2
       },
     ], {});

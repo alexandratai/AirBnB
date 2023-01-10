@@ -4,14 +4,25 @@
     margin: 0 auto;
 }
 
+.img-div {
+    object-fit: contain;
+    overflow: hidden;
+}
+
 .preview-image {
-    height: 200px;
+    height: auto;
     width: 340px;
     border-radius: 10px; 
 }
 
 .text {
     text-align: center;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
 }
 
 .pop-up {
