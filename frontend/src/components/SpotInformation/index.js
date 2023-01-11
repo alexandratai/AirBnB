@@ -25,10 +25,12 @@ const SpotInformation = () => {
   if (spot && sessionUser.id) {
     currentOwner = sessionUser.id === spot.ownerId;
   };
+  console.log("HERE", currentOwner)
 
   const userReview = reviewsArr.filter(review => {
     return review.userId === sessionUser.id
   });
+  console.log("####", userReview.length)
 
   const editSpotInfo = () => {
     history.push(`/spots/${spot.id}/edit`);

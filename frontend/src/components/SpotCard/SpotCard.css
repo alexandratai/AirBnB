@@ -5,14 +5,19 @@
 }
 
 .img-div {
-    object-fit: contain;
+    display: flex;
+    justify-content: center;
     overflow: hidden;
+    width: 270px;
+    height: 160px;
+    border-radius: 10px;
 }
 
 .preview-image {
-    height: auto;
-    width: 340px;
+    background-size: cover;
     border-radius: 10px; 
+    max-height: 200px; 
+    max-width: 300px;
 }
 
 .text {

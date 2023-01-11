@@ -1,6 +1,6 @@
 .spot-grid {
     display: grid;
-    grid-template-columns: repeat(3, 400px);
+    grid-template-columns: repeat(4, 360px);
     justify-content: space-between;
     width: 300px;
 }

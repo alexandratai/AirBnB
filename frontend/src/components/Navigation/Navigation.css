@@ -1,4 +1,6 @@
 .nav-bar {
+    display: grid;
+    justify-content: center;
     font-family: Arial;
     font-size: 11pt;
     text-decoration: none;
@@ -18,4 +20,5 @@
     width: 200px; 
     display: block;
 }
+
 
