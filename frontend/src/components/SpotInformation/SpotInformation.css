@@ -1,9 +1,24 @@
+.container {
+    display: grid;
+    grid-template-columns: 340px;
+    justify-content: center;
+}
+
 .text {
     font-family: Arial
 }
 
+.img-div {
+    overflow: hidden;
+    width: 270px;
+    height: 160px;
+    border-radius: 10px;
+}
+
+
 .image {
-    height: 200px;
-    width: 340px;
+    max-height: 200px;
+    max-width: 340px;
     border-radius: 10px; 
+    background-size: cover;
 }

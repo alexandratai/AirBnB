@@ -17,6 +17,7 @@ const SpotInformation = () => {
   const reviewsObj = useSelector((state) => state.reviews);
   const reviewsArr = Object.values(reviewsObj);
   const sessionUser = useSelector((state) => state.session.user);
+  const sessionUserArr = Object.values(sessionUser)
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -25,12 +26,10 @@ const SpotInformation = () => {
   if (spot && sessionUser.id) {
     currentOwner = sessionUser.id === spot.ownerId;
   };
-  console.log("HERE", currentOwner)
 
   const userReview = reviewsArr.filter(review => {
     return review.userId === sessionUser.id
   });
-  console.log("####", userReview.length)
 
   const editSpotInfo = () => {
     history.push(`/spots/${spot.id}/edit`);
@@ -57,16 +56,18 @@ const SpotInformation = () => {
   return (
     <div>
       {spot && (
-        <>
+        <div className="container">
           <h1 className="text">{spot.name}</h1>
           <h2 className="text">{spot.address}</h2>
+          <div className="img-div">
           <img src={spot.previewImage} alt="img" className="image" />
+          </div>
           <p className="text">{spot.description}</p>
           {currentOwner && <button onClick={editSpotInfo}>Edit Spot</button>}
           {currentOwner && (
             <button onClick={() => setShowModal(true)}>Delete Spot</button>
           )}
-          {(!currentOwner && userReview.length < 1) && <button onClick={createReview}>Write Review</button>}
+          {((!currentOwner && userReview.length < 1) && sessionUserArr.length > 0) && <button onClick={createReview}>Write Review</button>}
 
           {reviewsArr.length > 0 &&
             reviewsArr.map((review) => {
@@ -84,7 +85,7 @@ const SpotInformation = () => {
               <button onClick={() => setShowModal(false)}>Cancel</button>
             </Modal>
           )}
-        </>
+        </div>
       )}
     </div>
   );
