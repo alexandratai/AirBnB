@@ -21,6 +21,7 @@ const CreateSpotForm = () => {
   const [price, setPrice] = useState(0);
   const [state, setState] = useState("");
   const [errors, setErrors] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
 
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
@@ -36,6 +37,23 @@ const CreateSpotForm = () => {
   useEffect(() => {
     dispatch(allSpotsThunk());
   }, [dispatch]);
+
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = () => {
+      setShowMenu(false);
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,6 +169,29 @@ const CreateSpotForm = () => {
           <button className="submit-button" type="submit-button">Create New Spot</button>
         </div>
       </form>
+
+      <div className="page-bottom-text">Made by + Technologies:</div>
+      <div className="page-bottom-buttons">
+        <a href="https://github.com/alexandratai" target="_blank">
+          <div className="github-div">
+            <button className="github">
+              <i className="fa-brands fa-github"></i>
+            </button>
+          </div>
+        </a>
+        <div className="tech-div">
+          <button className="tech" onClick={openMenu}>
+            <i className="fa-solid fa-code"></i>
+          </button>
+        </div>
+      </div>
+
+      {showMenu && (
+        <div className="tech-dropdown">
+          Built with Node.js, Express, Sequelize, Sqlite3, <br></br>React,
+          Redux, HTML5, CSS, Git, JavaScript
+        </div>
+      )}
     </section>
   ) : null;
 };
