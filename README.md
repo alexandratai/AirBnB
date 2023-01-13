@@ -19,7 +19,7 @@ Airlite is a lightweight Airbnb clone with a curated collection of short-term ho
 
 2. **How to set up your .env file in the backend directory**:
 
-+ Option 1: `cd` into the backend folder in your terminal and make a copy of the .env.example file using `cp .env.example .env`. In the newly created `.env` file, change the varibles marked with `<<>>`. Assign the port you'll be using and generate a strong secret. You can run `openssl rand -base64 10` to generate a random JWT secret.
++ Option 1: `cd` into the backend folder in your terminal and make a copy of the .env.example file using `cp .env.example .env`. In the newly created `.env` file, change the varibles marked with `<<>>`. Assign the port you'll be using and generate a strong secret. You can run `openssl rand -base64 10` to generate a random JWT secret. Alternatively, you can run `require('crypto').randomBytes(64).toString('hex')` in Node.
 
 + Option 2: In Visual Studio Code, make a new `.env` file in the backend folder. Copy everything in the `.env.example` file and paste it in your newly created `.env` file. Change the varibles marked with `<<>>`. Assign the port you'll be using and generate a strong secret. You can run `openssl rand -base64 10` if you have `openssl` installed in your Ubuntu / MacOS shell to generate a random JWT secret. Alternatively, you can run `require('crypto').randomBytes(64).toString('hex')` in Node.
 

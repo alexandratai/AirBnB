@@ -36,11 +36,11 @@
     justify-content: center;
 }
 
-#inner-divider {
+.inner-divider {
     padding-bottom: 10px;
 }
 
-#inner-divider:hover button {
+.btn-div .inner-divider:hover .btn {
     color: rgb(145, 91, 91);
 }
 

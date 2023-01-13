@@ -81,21 +81,21 @@ const SpotInformation = () => {
           <img src={spot.previewImage} alt="img" className="image" />
           <div className="description">{spot.description}</div>
           <div className="group-btn-div">
-            <div className="btn-div">
+            <div className="btn-dvdr">
               {currentOwner && (
                 <button className="button" onClick={editSpotInfo}>
                   Edit Spot
                 </button>
               )}
             </div>
-            <div className="btn-div">
+            <div className="btn-dvdr">
               {currentOwner && (
                 <button className="button" onClick={() => setShowModal(true)}>
                   Delete Spot
                 </button>
               )}
             </div>
-            <div className="btn-div">
+            <div className="btn-dvdr">
               {!currentOwner &&
                 userReview.length < 1 &&
                 sessionUserArr.length > 0 && (

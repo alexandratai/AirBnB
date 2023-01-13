@@ -54,12 +54,12 @@ const ReviewCard = ({ review }) => {
               Are you sure you want to delete this review?
             </p>
             <div className="btn-div">
-              <div id="inner-divider">
+              <div className="inner-divider">
                 <button className="btn" onClick={deleteReview}>
                   Delete
                 </button>
               </div>
-              <div id="inner-divider">
+              <div className="inner-divider">
                 <button
                   className="btn"
                   onClick={() => setShowModal(false)}>Cancel</button>
