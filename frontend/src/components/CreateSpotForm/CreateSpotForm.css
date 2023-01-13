@@ -1,4 +1,55 @@
+.create-spot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid lightgray;;
+    border-radius: 10px;
+}
+
+.errors {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+    color: rgb(163, 89, 89);
+    text-align: center;
+    list-style-type: none;
+    padding: 15px;
+}
+
+hr { 
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid rgb(183, 172, 172);
+    margin: 1em 0;
+}
+
+p {
+    font-family: Arial;
+    font-size: 10pt;
+    text-align: center;
+    color: rgb(177, 142, 142);
+}
+
 .spot-form {
     font-family: Arial;
     font-size: 11pt;
+    font-weight: bold;
+}
+
+.submit-button-div {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.submit-button-div:hover button  {
+    color: rgb(145, 91, 91);
+}
+
+.submit-button {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }

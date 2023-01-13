@@ -1,24 +1,52 @@
 .nav-bar {
-    display: grid;
-    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     font-family: Arial;
     font-size: 11pt;
+    padding-top: 10px;
     text-decoration: none;
-    list-style-type:none;
+    list-style-type: none;
+    padding-bottom: 15px;
+    color: black;
 }
 
 .profile-dropdown {
-    list-style-type:none;
-    margin: 10px 0 10px 0;
+    margin: 25px 0 10px 0;
     width: 200px; 
+    height: 70px;
     display: block;
+    left: 70%;
+    position: absolute;
+    padding: 1pt 5pt;
+    text-align: center;
+    gap: 15px;
+    border: solid 1px rgb(236, 231, 231);
+    border-radius: 5px;
+    
 }
 
-.profile-dropdown {
-    list-style-type:none;
-    margin: 10px 0 10px 0;
-    width: 200px; 
-    display: block;
+.info {
+    font-size: 10pt;
 }
 
+.username {
+    font-weight: bold;
+    color: rgb(202, 167, 167);
+}
+
+.email {
+    color: rgb(214, 183, 183);
+}
+
+.button, .profile-dropdown-button {
+    color: rgb(214, 183, 183);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.button-div:hover, .profile-dropdown-button:hover {
+    color: rgb(177, 142, 142);
+}
 

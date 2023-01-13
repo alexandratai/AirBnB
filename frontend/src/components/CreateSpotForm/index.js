@@ -8,7 +8,7 @@ import { makeSpotThunk } from "../../store/spots";
 const CreateSpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -20,7 +20,7 @@ const CreateSpotForm = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [price, setPrice] = useState(0);
   const [state, setState] = useState("");
-  // const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
@@ -53,7 +53,13 @@ const CreateSpotForm = () => {
       state,
     };
 
-    let createdSpot = await dispatch(makeSpotThunk(payload));
+    let createdSpot = await dispatch(makeSpotThunk(payload)).catch(
+      async (response) => {
+        const data = await response.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
+
     if (createdSpot) {
       history.push(`/spots/${createdSpot.id}`);
     }
@@ -61,59 +67,57 @@ const CreateSpotForm = () => {
 
   return sessionUser.id ? (
     <section>
-      <form onSubmit={handleSubmit}>
-        <label className="spot-form">Create a Spot:</label>
-        <br></br>
-        <input
-          required
+      <form className="create-spot-form" onSubmit={handleSubmit}>
+        <div className="errors">
+          {errors.map((error, index) => (
+            <li key={index}>Error: {error}</li>
+          ))}
+        </div>
+        <p className="spot-form">Create a Spot:</p>
+
+        <input 
           type="text"
           placeholder="Spot name here"
           value={name}
           onChange={updateName}
         />
 
-        <input
-          required
+        <input 
           type="text"
           placeholder="Address here"
           value={address}
           onChange={updateAddress}
         />
 
-        <input
-          required
+        <input 
           type="text"
           placeholder="City here"
           value={city}
           onChange={updateCity}
         />
 
-        <input
-          required
+        <input 
           type="text"
           placeholder="State here"
           value={state}
           onChange={updateState}
         />
 
-        <input
-          required
+        <input 
           type="text"
           placeholder="Country here"
           value={country}
           onChange={updateCountry}
         />
 
-        <input
-          required
+        <input 
           type="text"
           placeholder="Description here"
           value={description}
           onChange={updateDescription}
         />
 
-        <input
-          required
+        <input 
           type="number"
           min="0"
           placeholder="Latitude here"
@@ -121,8 +125,7 @@ const CreateSpotForm = () => {
           onChange={updateLat}
         />
 
-        <input
-          required
+        <input 
           type="number"
           min="0"
           placeholder="Longitude here"
@@ -130,28 +133,26 @@ const CreateSpotForm = () => {
           onChange={updateLng}
         />
 
-        <input
-          required
+        <input 
           type="text"
           placeholder="Image url here"
           value={previewImage}
           onChange={updatePreviewImage}
         />
-
-        <input
-          required
+        
+        <input 
           type="number"
           min="1"
           placeholder="Price here"
           value={price || ""}
           onChange={updatePrice}
         />
-
-        <button type="submit">Create New Spot</button>
+        <div className="submit-button-div">
+          <button className="submit-button" type="submit-button">Create New Spot</button>
+        </div>
       </form>
     </section>
-  ) :
-  null;
+  ) : null;
 };
 
 export default CreateSpotForm;

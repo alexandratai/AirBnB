@@ -8,6 +8,7 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const review = require("../../db/models/review");
 const booking = require("../../db/models/booking");
+const { Op } = require("sequelize");
 
 // const { requireAuth } = require('/../../utils/auth');
 
@@ -16,15 +17,34 @@ const router = express.Router();
 const validateSignup = [
   check("email")
     .exists({ checkFalsy: true })
+    .withMessage("Please provide an email address.")
     .isEmail()
     .withMessage("Please provide a valid email."),
+  check("firstName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a first name.")
+    .isAlpha()
+    .withMessage("Please provide a first name with only alphabetical characters, no spaces or dashes.")
+    .isLength({ min: 2 })
+    .withMessage("Please provide a first name with at least 2 letters."),
+  check("lastName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a last name.")
+    .isAlpha()
+    .withMessage("Please provide a last name with only alphabetical characters, no spaces or dashes.")
+    .isLength({ min: 2 })
+    .withMessage("Please provide a last name with at least 2 letters."),
   check("username")
     .exists({ checkFalsy: true })
+    .withMessage("Please provide a username.")
+    .isAlpha()
+    .withMessage("Please provide a username with only alphabetical characters, no spaces or dashes.")
     .isLength({ min: 4 })
     .withMessage("Please provide a username with at least 4 characters."),
   check("username").not().isEmail().withMessage("Username cannot be an email."),
   check("password")
     .exists({ checkFalsy: true })
+    .withMessage("Please provide a password.")
     .isLength({ min: 6 })
     .withMessage("Password must be 6 characters or more."),
   handleValidationErrors,
@@ -36,13 +56,14 @@ router.post("/", validateSignup, async (req, res, next) => {
 
   const existingUser = await User.findOne({
     where: {
-      email,
+      [Op.or]: [ {email}, {username} ],
     },
   });
 
   if (existingUser) {
-    const err = new Error("User with that email already exists");
+    const err = new Error("User with that email or username already exists");
     err.status = 403;
+    err.errors = ["User with that email or username already exists."];
     return next(err);
   }
 

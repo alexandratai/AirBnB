@@ -1,11 +1,55 @@
-.review {
+.review-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 190px;
+    padding: 10px;
+    border: 1px solid lightgray;;
+    border-radius: 10px;
+    margin: 7px;
+}
+
+.review, .review-stars {
     font-family: Arial;
+    font-size: 10pt;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    text-align: center;
 };
 
 .pop-up {
     font-family: Arial;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.pop-up-button {
-    margin: auto
+.review-delete-div {
+    padding: 10px;
+}
+
+.btn-outer:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.btn-div {
+    display: flex;
+    justify-content: center;
+}
+
+#inner-divider {
+    padding-bottom: 10px;
+}
+
+#inner-divider:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.btn {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }

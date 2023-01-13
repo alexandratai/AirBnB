@@ -1,7 +1,10 @@
-.spot-card {
+.spot-card { 
     font-family: Arial;
+    color: rgb(177, 142, 142);
     width: 1000px;
     margin: 0 auto;
+    padding: 10px;
+    padding-left: 20px;
 }
 
 .img-div {
@@ -20,14 +23,35 @@
     max-width: 300px;
 }
 
-.text {
+.spot-name {
     text-align: center;
     font-weight: bold;
+    padding-bottom: 10px;
 }
 
-.buttons {
+.overall-div {
     display: flex;
     justify-content: center;
+}
+
+.buttons-div {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.buttons-div:hover button  {
+    color: rgb(145, 91, 91);
+}
+
+.delete-overall-div {
+    padding: 10px;
 }
 
 .pop-up {
@@ -37,5 +61,24 @@
 }
 
 .pop-up-button {
-    margin: auto
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.pop-up-button-div {
+    padding-bottom: 10px;
+}
+
+.pop-up-button-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
 }

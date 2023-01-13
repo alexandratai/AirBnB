@@ -17,18 +17,19 @@ const SpotInformation = () => {
   const reviewsObj = useSelector((state) => state.reviews);
   const reviewsArr = Object.values(reviewsObj);
   const sessionUser = useSelector((state) => state.session.user);
-  const sessionUserArr = Object.values(sessionUser)
-
+  const sessionUserArr = Object.values(sessionUser);
+  
   const [isLoaded, setIsLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   let currentOwner = false;
   if (spot && sessionUser.id) {
     currentOwner = sessionUser.id === spot.ownerId;
-  };
+  }
 
-  const userReview = reviewsArr.filter(review => {
-    return review.userId === sessionUser.id
+  const userReview = reviewsArr.filter((review) => {
+    return review.userId === sessionUser.id;
   });
 
   const editSpotInfo = () => {
@@ -42,8 +43,8 @@ const SpotInformation = () => {
   };
 
   const createReview = () => {
-    history.push(`/spots/${spotId}/reviews/create`)
-  }
+    history.push(`/spots/${spotId}/reviews/create`);
+  };
 
   useEffect(() => {
     dispatch(allSpotsThunk()).then(() => setIsLoaded(true));
@@ -53,38 +54,110 @@ const SpotInformation = () => {
     dispatch(allReviewsBySpotIdThunk(spotId));
   }, [dispatch]);
 
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = () => {
+      setShowMenu(false);
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
   return (
     <div>
       {spot && (
         <div className="container">
-          <h1 className="text">{spot.name}</h1>
-          <h2 className="text">{spot.address}</h2>
-          <div className="img-div">
+          <div className="name">{spot.name}</div>
+          <div className="address">{spot.address}</div>
+          <br></br>
           <img src={spot.previewImage} alt="img" className="image" />
+          <div className="description">{spot.description}</div>
+          <div className="group-btn-div">
+            <div className="btn-div">
+              {currentOwner && (
+                <button className="button" onClick={editSpotInfo}>
+                  Edit Spot
+                </button>
+              )}
+            </div>
+            <div className="btn-div">
+              {currentOwner && (
+                <button className="button" onClick={() => setShowModal(true)}>
+                  Delete Spot
+                </button>
+              )}
+            </div>
+            <div className="btn-div">
+              {!currentOwner &&
+                userReview.length < 1 &&
+                sessionUserArr.length > 0 && (
+                  <button className="button" onClick={createReview}>
+                    Write Review
+                  </button>
+                )}
+            </div>
           </div>
-          <p className="text">{spot.description}</p>
-          {currentOwner && <button onClick={editSpotInfo}>Edit Spot</button>}
-          {currentOwner && (
-            <button onClick={() => setShowModal(true)}>Delete Spot</button>
-          )}
-          {((!currentOwner && userReview.length < 1) && sessionUserArr.length > 0) && <button onClick={createReview}>Write Review</button>}
-
+          <br></br>
           {reviewsArr.length > 0 &&
             reviewsArr.map((review) => {
-                return <ReviewCard key={review.id} review={review} />;
+              return <ReviewCard key={review.id} review={review} />;
             })}
 
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <p className="pop-up">
-                Are you sure you want to delete this spot?
-              </p>
-              <button className="pop-up-button" onClick={deleteSpot}>
-                Delete
-              </button>
-              <button onClick={() => setShowModal(false)}>Cancel</button>
+              <div className="pop-up-box">
+                <p className="pop-up-text">
+                  Are you sure you want to delete this spot?
+                </p>
+                <div className="btn-box">
+                  <div className="pop-up-button-div">
+                    <button className="pop-up-button" onClick={deleteSpot}>
+                      Delete
+                    </button>
+                  </div>
+                  <div className="pop-up-button-div">
+                    <button
+                      className="pop-up-button"
+                      onClick={() => setShowModal(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
             </Modal>
           )}
+        </div>
+      )}
+
+      <div className="page-bottom-text">Made by + Technologies:</div>
+      <div className="page-bottom-buttons">
+        <a href="https://github.com/alexandratai" target="_blank">
+          <div className="github-div">
+            <button className="github">
+              <i className="fa-brands fa-github"></i>
+            </button>
+          </div>
+        </a>
+        <div className="tech-div">
+          <button className="tech" onClick={openMenu}>
+            <i className="fa-solid fa-code"></i>
+          </button>
+        </div>
+      </div>
+
+      {showMenu && (
+        <div className="tech-dropdown">
+          Built with Node.js, Express, Sequelize, Sqlite3, <br></br>React,
+          Redux, HTML5, CSS, Git, JavaScript
         </div>
       )}
     </div>

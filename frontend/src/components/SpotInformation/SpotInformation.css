@@ -1,24 +1,155 @@
 .container {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     grid-template-columns: 340px;
     justify-content: center;
+    color: rgb(177, 142, 142);
+    font-family: Arial;
 }
-
-.text {
-    font-family: Arial
-}
-
-.img-div {
-    overflow: hidden;
-    width: 270px;
-    height: 160px;
-    border-radius: 10px;
-}
-
 
 .image {
     max-height: 200px;
     max-width: 340px;
     border-radius: 10px; 
     background-size: cover;
+}
+
+.name {
+    font-size: 40px;
+}
+
+.address {
+    font-size: 20px;
+}
+
+.description {
+    display: grid;
+    grid-template-rows: 0 1fr 0;
+    align-items: center;
+    text-align: center;
+    padding-top: 45px;
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-bottom: 25px;
+    font-size: 11pt;
+}
+
+.pop-up-box {
+    padding: 10px;
+}
+
+.pop-up-text {
+    font-family: Arial;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pop-up-button-div {
+    padding-bottom: 10px;
+}
+
+.pop-up-button {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.pop-up-button-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.group-btn-div {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.button {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.btn-box {
+    display: flex;
+    justify-content: center;
+}
+
+.page-bottom-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.github-div {
+    display: flex;
+    justify-content: center;
+    margin-right: 2px;
+}
+
+.github-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.github {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-top: 2px;
+}
+
+.page-bottom-text {
+    display: flex;
+    justify-content: center;
+    font-family: Arial;
+    font-size: 9pt;
+    color: rgb(202, 167, 167);
+    padding-top: 60px;
+    padding-bottom: 5px;
+}
+
+.tech-div {
+    display: flex;
+    justify-content: center;
+}
+
+.tech-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.tech {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-top: 2px;
+}
+
+.tech-dropdown {
+    color: rgb(202, 167, 167);
+    font-family: Arial;
+    font-size: 9pt;
+    width: 400px; 
+    height: 30px;
+    display: block;
+    left: 35%;
+    position: absolute;
+    padding: 1pt 5pt;
+    margin: 2px;
+    text-align: center;
+    gap: 15px;
+    border: solid 1px rgb(236, 231, 231);
+    border-radius: 5px;
 }

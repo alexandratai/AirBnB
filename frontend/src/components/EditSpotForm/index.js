@@ -23,6 +23,9 @@ const EditSpotForm = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [price, setPrice] = useState(0);
   const [state, setState] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     if (spotChange) {
@@ -37,7 +40,7 @@ const EditSpotForm = () => {
       setPrice(spotChange.price);
       setState(spotChange.state);
     }
-  }, [spotChange])
+  }, [spotChange]);
 
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
@@ -71,19 +74,46 @@ const EditSpotForm = () => {
       state,
     };
 
-    let editedSpot = await dispatch(editSpotThunk(payload));
+    let editedSpot = await dispatch(editSpotThunk(payload)).catch(
+      async (response) => {
+        const data = await response.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
+
     if (editedSpot) {
       history.push(`/spots/${editedSpot.id}`);
     }
   };
 
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = () => {
+      setShowMenu(false);
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
   return sessionUser.id ? (
     <section>
-      <form onSubmit={handleSubmit}>
-        <label className="spot-form">Edit this Spot:</label>
-        <br></br>
+      <form className="edit-spot-form" onSubmit={handleSubmit}>
+        <div className="edit-spot-errors">
+          {errors.map((error, index) => (
+            <li key={index}>Error: {error}</li>
+          ))}
+        </div>
+        <p className="spot-form-title">Edit this Spot:</p>
         <input
-          required
+          className="input"
           type="text"
           placeholder="Spot name here"
           value={name}
@@ -91,7 +121,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="text"
           placeholder="Address here"
           value={address}
@@ -99,7 +129,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="text"
           placeholder="City here"
           value={city}
@@ -107,7 +137,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="text"
           placeholder="State here"
           value={state}
@@ -115,7 +145,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="text"
           placeholder="Country here"
           value={country}
@@ -123,7 +153,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="text"
           placeholder="Description here"
           value={description}
@@ -131,7 +161,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="number"
           min="0"
           placeholder="Latitude here"
@@ -140,7 +170,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="number"
           min="0"
           placeholder="Longitude here"
@@ -149,7 +179,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="text"
           placeholder="Image url here"
           value={previewImage}
@@ -157,7 +187,7 @@ const EditSpotForm = () => {
         />
 
         <input
-          required
+          className="input"
           type="number"
           min="1"
           placeholder="Price here"
@@ -165,11 +195,37 @@ const EditSpotForm = () => {
           onChange={updatePrice}
         />
 
-        <button type="submit">Edit New Spot</button>
+        <div className="edit-submit-button-div">
+          <button className="edit-submit-button" type="submit">
+            Edit Spot
+          </button>
+        </div>
       </form>
+
+      <div className="page-bottom-text">Made by + Technologies:</div>
+      <div className="page-bottom-buttons">
+        <a href="https://github.com/alexandratai" target="_blank">
+          <div className="github-div">
+            <button className="github">
+              <i className="fa-brands fa-github"></i>
+            </button>
+          </div>
+        </a>
+        <div className="tech-div">
+          <button className="tech" onClick={openMenu}>
+            <i className="fa-solid fa-code"></i>
+          </button>
+        </div>
+      </div>
+
+      {showMenu && (
+        <div className="tech-dropdown">
+          Built with Node.js, Express, Sequelize, Sqlite3, <br></br>React,
+          Redux, HTML5, CSS, Git, JavaScript
+        </div>
+      )}
     </section>
-  ) :
-  null;
+  ) : null;
 };
 
 export default EditSpotForm;

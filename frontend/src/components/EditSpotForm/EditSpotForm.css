@@ -1,0 +1,115 @@
+.edit-spot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid lightgray;;
+    border-radius: 10px;
+}
+
+.edit-spot-errors {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+    color: rgb(163, 89, 89);
+    text-align: center;
+    list-style-type: none;
+    padding: 15px;
+}
+
+.spot-form-title {
+    font-family: Arial;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+p {
+    font-weight: bold;
+}
+
+.edit-submit-button-div {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.edit-submit-button-div:hover button  {
+    color: rgb(145, 91, 91);
+}
+
+.edit-submit-button {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.input {
+    color: grey;
+}
+
+.page-bottom-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.github-div {
+    display: flex;
+    justify-content: center;
+    margin-right: 2px;
+}
+
+.github-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.github {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-top: 2px;
+}
+
+.page-bottom-text {
+    display: flex;
+    justify-content: center;
+    font-family: Arial;
+    font-size: 9pt;
+    color: rgb(202, 167, 167);
+    padding-top: 60px;
+    padding-bottom: 5px;
+}
+
+.tech-div {
+    display: flex;
+    justify-content: center;
+}
+
+.tech-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.tech {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-top: 2px;
+}
+
+.tech-dropdown {
+    color: rgb(202, 167, 167);
+    font-family: Arial;
+    font-size: 9pt;
+    width: 400px; 
+    height: 30px;
+    display: block;
+    left: 35%;
+    position: absolute;
+    padding: 1pt 5pt;
+    margin: 2px;
+    text-align: center;
+    gap: 15px;
+    border: solid 1px rgb(236, 231, 231);
+    border-radius: 5px;
+}

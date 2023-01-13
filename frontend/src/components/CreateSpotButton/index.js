@@ -10,7 +10,7 @@ const CreateSpotButton = () => {
     };
 
     return (
-        <button onClick={createASpot}>Create Spot</button>
+        <button className="profile-dropdown-button" onClick={createASpot}>Create Spot</button>
     );
 };
 

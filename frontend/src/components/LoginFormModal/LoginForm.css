@@ -1,8 +1,35 @@
+.modal {
+    padding: 10px;
+}
+
 .error-text {
     font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+    color: rgb(163, 89, 89);
+    text-align: center;
+    list-style-type: none;
 }
 
 .modal-text {
     font-family: Arial;
-    font-size: 11pt;
+    font-size: 10pt;
+    text-align: center;
+    color: rgb(177, 142, 142);
 }
+
+.modal-button-div {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-button-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.modal-button {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+};
