@@ -1,15 +1,6 @@
 .spot-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 350px);
-    justify-content: space-between;
-    width: 300px;
-}
-
-.spot-card {
-    font-family: Arial;
-    font-size: 11pt;
-    width: fit-content;
-    min-height: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .page-bottom-buttons {

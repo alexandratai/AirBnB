@@ -40,14 +40,14 @@ const SpotGrid = () => {
         {spotsArr.length > 0 &&
           spotsArr.map((spot) => {
             // If spots.length > 0 THEN spots.map
-            return <SpotCard className="spot-card" key={spot.id} spot={spot} />;
+            return <SpotCard key={spot.id} spot={spot} />;
           })}
       </div>
       <br></br>
 
       <div className="page-bottom-text">Made by + Technologies:</div>
       <div className="page-bottom-buttons">
-        <a href="https://github.com/alexandratai" target="_blank">
+        <a href="https://github.com/alexandratai" target="_blank" rel="noreferrer">
           <div className="github-div">
             <button className="github">
               <i className="fa-brands fa-github"></i>
