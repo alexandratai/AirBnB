@@ -1,7 +1,7 @@
 import "./CreateSpotForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { allSpotsThunk } from "../../store/spots";
 import { makeSpotThunk } from "../../store/spots";
 
@@ -172,7 +172,7 @@ const CreateSpotForm = () => {
 
       <div className="page-bottom-text">Made by + Technologies:</div>
       <div className="page-bottom-buttons">
-        <a href="https://github.com/alexandratai" target="_blank">
+        <a href="https://github.com/alexandratai" target="_blank" rel="noreferrer">
           <div className="github-div">
             <button className="github">
               <i className="fa-brands fa-github"></i>

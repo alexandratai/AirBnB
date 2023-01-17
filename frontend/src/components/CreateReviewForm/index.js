@@ -1,7 +1,7 @@
 import "./CreateReviewForm.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { allReviewsBySpotIdThunk } from "../../store/reviews";
 import { makeReviewThunk } from "../../store/reviews";
 import { useParams } from "react-router-dom";
@@ -22,7 +22,7 @@ const CreateReviewForm = () => {
 
   useEffect(() => {
     dispatch(allReviewsBySpotIdThunk(spotId));
-  }, [dispatch]);
+  }, [dispatch, spotId]);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -98,7 +98,7 @@ const CreateReviewForm = () => {
 
       <div className="page-bottom-text">Made by + Technologies:</div>
       <div className="page-bottom-buttons">
-        <a href="https://github.com/alexandratai" target="_blank">
+        <a href="https://github.com/alexandratai" target="_blank" rel="noreferrer">
           <div className="github-div">
             <button className="github">
               <i className="fa-brands fa-github"></i>

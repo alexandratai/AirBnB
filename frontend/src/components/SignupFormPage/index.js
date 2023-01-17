@@ -138,7 +138,7 @@ function SignupFormPage() {
 
     <div className="page-bottom-text">Made by + Technologies:</div>
       <div className="page-bottom-buttons">
-        <a href="https://github.com/alexandratai" target="_blank">
+        <a href="https://github.com/alexandratai" target="_blank" rel="noreferrer">
           <div className="github-div">
             <button className="github">
               <i className="fa-brands fa-github"></i>

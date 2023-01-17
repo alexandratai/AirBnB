@@ -344,6 +344,7 @@ router.post(
     if (existingReview && existingReview.userId === userId) {
       const err = new Error("User already has a review for this spot");
       err.status = 403;
+      err.errors = ["User already has a review for this spot."];
       return next(err);
     }
 

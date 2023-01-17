@@ -1,10 +1,10 @@
-.profile-dropdown-button {
+.create-a-spot-btn {
     color: rgb(214, 183, 183);
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 5px;
 }
 
-.profile-dropdown-button:hover  {
+.create-a-spot-btn:hover  {
     color: rgb(177, 142, 142);
 }
