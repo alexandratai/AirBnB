@@ -65,3 +65,66 @@
 .user-spots-btn:hover  {
     color: rgb(177, 142, 142);
 }
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: Arial;
+    font-size: 11pt;
+    padding-top: 10px;
+    text-decoration: none;
+    list-style-type: none;
+    padding-bottom: 15px;
+    color: black;
+}
+
+.profile-dropdown {
+    margin: 25px 0 10px 0;
+    width: 200px; 
+    height: 90px;
+    display: block;
+    left: 70%;
+    position: absolute;
+    padding: 1pt 5pt;
+    text-align: center;
+    gap: 15px;
+    border: solid 1px rgb(236, 231, 231);
+    border-radius: 5px;
+}
+
+.info {
+    font-size: 10pt;
+}
+
+.username {
+    font-weight: bold;
+    color: rgb(177, 142, 142);
+}
+
+.email {
+    color: rgb(202, 167, 167);
+}
+
+.open-menu {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.open-menu-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.log-out {
+    color: white;
+    background-color: rgb(214, 183, 183);
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.log-out:hover {
+    color: rgb(177, 142, 142);
+    background-color: white;
+}
