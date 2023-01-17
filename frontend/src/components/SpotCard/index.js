@@ -33,8 +33,8 @@ const SpotCard = ({ spot }) => {
   // }
 
   return (
-    <div className="individual-spot-card">
-      <div className="spot-name">{spot.name}</div>
+    <div className="individual-spt-crds">
+      <div className="spt-title">{spot.name}</div>
       <Link to={`spots/${spot.id}`}>
         <div className="img-div">
           <img src={spot.previewImage} alt="img" className="preview-image" />

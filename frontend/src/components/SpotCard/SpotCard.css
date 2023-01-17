@@ -1,4 +1,4 @@
-.individual-spot-card { 
+.individual-spt-crds { 
     font-family: Arial;
     font-size: 11pt;
     color: rgb(177, 142, 142);
@@ -26,7 +26,7 @@
     max-width: 300px;
 }
 
-.spot-name {
+.spt-title {
     text-align: center;
     font-weight: bold;
     padding-bottom: 10px;
