@@ -1,4 +1,4 @@
-.individual-spt-crds { 
+/* .individual-spt-crds { 
     font-family: Arial;
     font-size: 11pt;
     color: rgb(177, 142, 142);
@@ -8,7 +8,7 @@
     padding-left: 17px;
     width: fit-content;
     min-height: auto;
-}
+} */
 
 .img-div {
     display: flex;
@@ -26,11 +26,11 @@
     max-width: 300px;
 }
 
-.spt-title {
+/* .spt-title {
     text-align: center;
     font-weight: bold;
     padding-bottom: 10px;
-}
+} */
 
 .overall-div {
     display: flex;

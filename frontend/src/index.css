@@ -1,1 +1,29 @@
 /* TODO Add site wide styles */
+.create-a-spt-btn {
+    color: rgb(214, 183, 183);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.create-a-spt-btn:hover  {
+    color: rgb(177, 142, 142);
+}
+
+.individual-spt-crds { 
+    font-family: Arial;
+    font-size: 11pt;
+    color: rgb(177, 142, 142);
+    width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    padding-left: 17px;
+    width: fit-content;
+    min-height: auto;
+}
+
+.spt-title {
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
