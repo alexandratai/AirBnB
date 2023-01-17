@@ -54,3 +54,14 @@
     max-height: 200px; 
     max-width: 300px;
 }
+
+.user-spots-btn {
+    color: rgb(214, 183, 183);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.user-spots-btn:hover  {
+    color: rgb(177, 142, 142);
+}
