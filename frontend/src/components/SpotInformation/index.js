@@ -115,19 +115,19 @@ const SpotInformation = () => {
 
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-              <div className="pop-up-box">
-                <p className="pop-up-text">
+              <div className="popup-box">
+                <p className="popup-text">
                   Are you sure you want to delete this spot?
                 </p>
                 <div className="btn-box">
-                  <div className="pop-up-button-div">
-                    <button className="pop-up-button" onClick={deleteSpot}>
+                  <div className="popup-button-div">
+                    <button className="popup-delete-cancel" onClick={deleteSpot}>
                       Delete
                     </button>
                   </div>
-                  <div className="pop-up-button-div">
+                  <div className="popup-button-div">
                     <button
-                      className="pop-up-button"
+                      className="popup-delete-cancel"
                       onClick={() => setShowModal(false)}
                     >
                       Cancel

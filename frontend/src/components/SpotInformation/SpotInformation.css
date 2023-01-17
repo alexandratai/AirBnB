@@ -34,21 +34,21 @@
     font-size: 11pt;
 }
 
-.pop-up-box {
+/* .popup-box {
     padding: 10px;
 }
 
-.pop-up-text {
+.popup-text {
     font-family: Arial;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.pop-up-button-div {
+.popup-button-div {
     padding-bottom: 10px;
 }
 
-.pop-up-button {
+.popup-delete-cancel {
     margin: auto;
     display: flex;
     justify-content: center;
@@ -58,9 +58,9 @@
     border-radius: 5px;
 }
 
-.pop-up-button-div:hover button {
+.popup-button-div:hover button {
     color: rgb(145, 91, 91);
-}
+} */
 
 .group-btn-div {
     display: flex;
@@ -81,10 +81,10 @@
     border-radius: 5px;
 }
 
-.btn-box {
+/* .btn-box {
     display: flex;
     justify-content: center;
-}
+} */
 
 .page-bottom-buttons {
     display: flex;

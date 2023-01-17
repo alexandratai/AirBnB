@@ -23,7 +23,7 @@
     font-size: 13px;
 }
 
-.user-spots-modal {
+/* .user-spots-modal {
     padding: 10px;
 }
 
@@ -49,7 +49,7 @@
 
 .user-spots-modal-btn:hover button {
     color: rgb(145, 91, 91);
-}
+} */
 
 .user-btns-all {
     display: flex;

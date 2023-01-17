@@ -128,3 +128,155 @@
     color: rgb(177, 142, 142);
     background-color: white;
 }
+
+.modal {
+    padding: 10px;
+}
+
+.error-text {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+    color: rgb(163, 89, 89);
+    text-align: center;
+    list-style-type: none;
+}
+
+.modal-text {
+    font-family: Arial;
+    font-size: 10pt;
+    text-align: center;
+    color: rgb(177, 142, 142);
+}
+
+.modal-button-div {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-button-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.modal-button {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+};
+
+.overall-div {
+    display: flex;
+    justify-content: center;
+}
+
+.spt-buttons-div {
+    display: flex;
+    justify-content: center;
+}
+
+.view-edit-delete-buttons {
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.spt-buttons-div:hover button  {
+    color: rgb(145, 91, 91);
+}
+
+
+.delete-overall-div {
+    padding: 10px;
+}
+
+.pop-up {
+    font-family: Arial;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pop-up-button {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.pop-up-button-div {
+    padding-bottom: 10px;
+}
+
+.pop-up-button-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+}
+
+.user-spots-modal {
+    padding: 10px;
+}
+
+.user-spots-modal-text {
+    font-family: Arial;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.user-spots-modal-btn {
+    padding-bottom: 10px;
+}
+
+.user-spots-delete, .user-spots-cancel {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.user-spots-modal-btn:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.popup-box {
+    padding: 10px;
+}
+
+.popup-text {
+    font-family: Arial;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.popup-button-div {
+    padding-bottom: 10px;
+}
+
+.popup-delete-cancel {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.popup-button-div:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.btn-box {
+    display: flex;
+    justify-content: center;
+}

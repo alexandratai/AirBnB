@@ -32,27 +32,27 @@
     padding-bottom: 10px;
 } */
 
-.overall-div {
+/* .overall-div {
     display: flex;
     justify-content: center;
 }
 
-.buttons-div {
+.spt-buttons-div {
     display: flex;
     justify-content: center;
 }
 
-.button {
+.view-edit-delete-buttons {
     color: rgb(177, 142, 142);
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 5px;
-}
+} */
 
-.buttons-div:hover button  {
+/* .buttons-div:hover button  {
     color: rgb(145, 91, 91);
-}
-
+} */
+/* 
 .delete-overall-div {
     padding: 10px;
 }
@@ -84,4 +84,4 @@
 .button-box {
     display: flex;
     justify-content: center;
-}
+} */

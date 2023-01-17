@@ -42,21 +42,21 @@ const SpotCard = ({ spot }) => {
       </Link>
       <br></br>
       <div className="overall-div">
-        <div className="buttons-div">
-          <button className="button" onClick={spotInfo}>
+        <div className="spt-buttons-div">
+          <button className="view-edit-delete-buttons" onClick={spotInfo}>
             View Spot
           </button>
         </div>
-        <div className="buttons-div">
+        <div className="spt-buttons-div">
           {currentOwner && (
-            <button className="button" onClick={editSpotInfo}>
+            <button className="view-edit-delete-buttons" onClick={editSpotInfo}>
               Edit Spot
             </button>
           )}
         </div>
-        <div className="buttons-div">
+        <div className="spt-buttons-div">
           {currentOwner && (
-            <button className="button" onClick={() => setShowModal(true)}>
+            <button className="view-edit-delete-buttons" onClick={() => setShowModal(true)}>
               Delete Spot
             </button>
           )}
