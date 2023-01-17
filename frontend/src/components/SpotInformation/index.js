@@ -1,9 +1,8 @@
 import "./SpotInformation.css";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { allSpotsThunk } from "../../store/spots";
-import { useHistory } from "react-router-dom";
 import { deleteSpotThunk } from "../../store/spots";
 import { Modal } from "../../context/Modal";
 import ReviewCard from "../ReviewCard";
@@ -15,7 +14,10 @@ const SpotInformation = () => {
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots[spotId]);
   const reviewsObj = useSelector((state) => state.reviews);
-  const reviewsArr = Object.values(reviewsObj);
+  const initialReviewsArr = Object.values(reviewsObj);
+  const reviewsArr = initialReviewsArr.filter((review) => {
+    return parseInt(spotId) === review.spotId;
+  })
   const sessionUser = useSelector((state) => state.session.user);
   const sessionUserArr = Object.values(sessionUser);
   

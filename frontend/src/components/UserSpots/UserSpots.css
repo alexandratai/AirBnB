@@ -1,0 +1,76 @@
+.user-spots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-template-columns: 340px;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    font-family: Arial;
+}
+
+.user-spots-img {
+    max-height: 200px;
+    max-width: 340px;
+    border-radius: 10px; 
+    background-size: cover;
+}
+
+.user-spots-name {
+    font-size: 20px;
+}
+
+.user-spots-address {
+    font-size: 13px;
+}
+
+.user-spots-modal {
+    padding: 10px;
+}
+
+.user-spots-modal-text {
+    font-family: Arial;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.user-spots-modal-btn {
+    padding-bottom: 10px;
+}
+
+.user-spots-delete, .user-spots-cancel {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.user-spots-modal-btn:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.user-btns-all {
+    display: flex;
+    justify-content: center;
+}
+
+.user-btns:hover button {
+    color: rgb(145, 91, 91);
+}
+
+.user-spots-edit, .user-spots-delete {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: rgb(177, 142, 142);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.user-spots-modal-btns {
+    display: flex;
+    justify-content: center;
+}

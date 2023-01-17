@@ -9,17 +9,13 @@ const ReviewCard = ({ review }) => {
   const history = useHistory();
   const { spotId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
-  const sessionReviewsObj = useSelector((state) => state.reviews);
-  const sessionReviewsArr = Object.values(sessionReviewsObj);
-  const reviews = sessionReviewsArr.find(
-    (review) => review.userId === sessionUser.id
-  );
+
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
 
   const editReviewInfo = () => {
-    history.push(`/spots/${spotId}/reviews/${reviews.id}/edit`);
+    history.push(`/spots/${spotId}/reviews/${review.id}/edit`);
   };
 
   const deleteReview = (e) => {
@@ -37,14 +33,18 @@ const ReviewCard = ({ review }) => {
         <u>Rated</u>: {review.stars}/5
       </div>
       <div className="btn-outer">
-      {review.userId === sessionUser.id && (
-        <button className="btn" onClick={editReviewInfo}>Edit Review</button>
-      )}
+        {review.userId === sessionUser.id && (
+          <button className="btn" onClick={editReviewInfo}>
+            Edit Review
+          </button>
+        )}
       </div>
       <div className="btn-outer">
-      {review.userId === sessionUser.id && (
-        <button className="btn" onClick={() => setShowModal(true)}>Delete Review</button>
-      )}
+        {review.userId === sessionUser.id && (
+          <button className="btn" onClick={() => setShowModal(true)}>
+            Delete Review
+          </button>
+        )}
       </div>
 
       {showModal && (
@@ -60,9 +60,9 @@ const ReviewCard = ({ review }) => {
                 </button>
               </div>
               <div className="inner-divider">
-                <button
-                  className="btn"
-                  onClick={() => setShowModal(false)}>Cancel</button>
+                <button className="btn" onClick={() => setShowModal(false)}>
+                  Cancel
+                </button>
               </div>
             </div>
           </div>

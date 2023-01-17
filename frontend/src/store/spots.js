@@ -4,6 +4,7 @@ const GET_SPOTS = "spots/getSpots"; // Actions
 const ADD_SPOT = "spots/addSpot";
 const EDIT_SPOT = "spots/editSpot";
 const DELETE_SPOT = "spots/deleteSpot";
+const GET_SPOTS_USER = "spots/getSpotsByUserId";
 
 const getSpots = (spots) => {
   return {
@@ -31,6 +32,13 @@ const deleteSpot = (spotId) => {
     type: DELETE_SPOT,
     spotId,
   };
+};
+
+const getSpotsByUserId = (spots) => {
+  return {
+    type: GET_SPOTS_USER,
+    spots
+  }
 };
 
 export const allSpotsThunk = () => async (dispatch) => {
@@ -78,6 +86,13 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
     }
 };
 
+export const allSpotsByUserIdThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/users/me/spots`);
+  const data = await response.json();
+  dispatch(getSpotsByUserId(data.Spots));
+  return response;
+};
+
 const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
@@ -99,6 +114,11 @@ const spotReducer = (state = initialState, action) => {
       return newState;
     case DELETE_SPOT:
       delete newState[action.spotId];
+      return newState;
+    case GET_SPOTS_USER:
+      action.spots.forEach((spot) => {
+        newState[spot.id] = spot;
+      })
       return newState;
     default:
       return state;

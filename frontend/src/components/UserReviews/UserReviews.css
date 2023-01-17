@@ -1,0 +1,19 @@
+.user-rvw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 190px;
+    padding: 10px;
+    border: 1px solid lightgray;;
+    border-radius: 10px;
+    margin: 7px;
+}
+
+.rvw, .rating {
+    font-family: Arial;
+    color: rgb(177, 142, 142);
+    font-size: 10pt;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    text-align: center;
+};

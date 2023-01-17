@@ -4,6 +4,7 @@ const GET_REVIEWS_SPOT = "spots/getReviewsBySpotId";
 const ADD_REVIEW = "spots/addReview";
 const EDIT_REVIEW = "spots/editReview";
 const DELETE_REVIEW = "spots/deleteReview";
+const GET_REVIEWS_USER = "spots/getReviewsByUserId";
 
 const getReviewsBySpotId = (reviews) => {
   return {
@@ -23,15 +24,22 @@ const editReview = (review) => {
   return {
     type: EDIT_REVIEW,
     review,
-  }
+  };
 };
 
 const deleteReview = (review) => {
   return {
     type: DELETE_REVIEW,
-    review
-  }
-}
+    review,
+  };
+};
+
+const getReviewsByUserId = (reviews) => {
+  return {
+    type: GET_REVIEWS_USER,
+    reviews,
+  };
+};
 
 export const allReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
@@ -57,7 +65,7 @@ export const makeReviewThunk = (spotId, review) => async (dispatch) => {
 export const editReviewThunk = (review) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${review.id}`, {
     method: "PUT",
-    body: JSON.stringify(review)
+    body: JSON.stringify(review),
   });
 
   if (response.ok) {
@@ -69,14 +77,20 @@ export const editReviewThunk = (review) => async (dispatch) => {
 
 export const deleteReviewThunk = (review) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${review.id}`, {
-    method: "DELETE"
-  })
+    method: "DELETE",
+  });
 
   if (response.ok) {
-    dispatch(deleteReview(review))
+    dispatch(deleteReview(review));
   }
 };
 
+export const allReviewsByUserIdThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/users/me/reviews`);
+  const data = await response.json();
+  dispatch(getReviewsByUserId(data.Reviews));
+  return response;
+};
 
 const initialState = {};
 
@@ -84,7 +98,6 @@ const reviewReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case GET_REVIEWS_SPOT:
-      newState = {};
       action.reviews.forEach((review) => {
         newState[review.id] = review;
       });
@@ -97,6 +110,11 @@ const reviewReducer = (state = initialState, action) => {
       return newState;
     case DELETE_REVIEW:
       delete newState[action.review.id];
+      return newState;
+    case GET_REVIEWS_USER:
+      action.reviews.forEach((review) => {
+        newState[review.id] = review;
+      });
       return newState;
     default:
       return state;

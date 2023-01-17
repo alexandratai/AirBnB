@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import CreateSpotButton from "../CreateSpotButton";
+import UserReviewButton from "../UserReviewsButton";
+import UserSpotsButton from "../UserSpotsButton";
 import { useHistory } from "react-router-dom";
 import "./Navigation.css";
 
@@ -35,8 +37,8 @@ function ProfileButton({ user }) {
 
   return (
     <div className="nav-bar">
-      <div className="button-div">
-      <button className="button" onClick={openMenu}>
+      <div className="open-menu-div">
+      <button className="open-menu" onClick={openMenu}>
         <i className="fa-solid fa-user"></i>
       </button>
       </div>
@@ -46,8 +48,10 @@ function ProfileButton({ user }) {
             <div className="username">{user.username}</div>
             <div className="email">{user.email}</div>
           </div><br></br>
+            <UserReviewButton />
+            <UserSpotsButton />
             <CreateSpotButton />
-            <button className="profile-dropdown-button" onClick={logout}>Log Out</button>
+            <button className="log-out" onClick={logout}>Log Out</button>
         </div>
       )}
     </div>

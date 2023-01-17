@@ -24,6 +24,18 @@ module.exports = {
         review: "I thought it was okay. Terrible cell reception.",
         stars: 3
       },
+      {
+        userId: 2,
+        spotId: 2,
+        review: "Beautiful home. I really enjoyed my stay.",
+        stars: 4
+      },
+      {
+        userId: 1,
+        spotId: 5,
+        review: "Host was very kind! Would come back again.",
+        stars: 4
+      },
     ], {});
 
   },
