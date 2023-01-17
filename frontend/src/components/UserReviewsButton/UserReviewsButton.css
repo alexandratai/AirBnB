@@ -1,0 +1,10 @@
+.your-reviews-btn {
+    color: rgb(214, 183, 183);
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.your-reviews-btn:hover  {
+    color: rgb(177, 142, 142);
+}

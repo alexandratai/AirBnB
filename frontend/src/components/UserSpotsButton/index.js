@@ -12,7 +12,7 @@ const UserSpotsButton = () => {
     };
 
     return (
-        <button className="profile-dropdown-button" onClick={getSpots}>My Spots</button>
+        <button className="user-spots-btn" onClick={getSpots}>My Spots</button>
     );
 };
 export default UserSpotsButton;

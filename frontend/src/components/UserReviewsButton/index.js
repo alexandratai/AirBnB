@@ -12,7 +12,7 @@ const UserReviewButton = () => {
     };
 
     return (
-        <button className="profile-dropdown-button" onClick={getReviews}>My Reviews</button>
+        <button className="your-reviews-btn" onClick={getReviews}>My Reviews</button>
     );
 };
 
