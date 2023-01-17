@@ -41,7 +41,7 @@ const SpotCard = ({ spot }) => {
         </div>
       </Link>
       <br></br>
-      <div className="overall-div">
+      <div className="container-all-spots-btns">
         <div className="spt-buttons-div">
           <button className="view-edit-delete-buttons" onClick={spotInfo}>
             View Spot
