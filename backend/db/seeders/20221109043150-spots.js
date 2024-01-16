@@ -62,7 +62,7 @@ module.exports = {
         name: "Chateau Laurel",
         description: "Just off North Beverly Hills Drive, this estate is in prime location for enjoying all this iconic area has to offer.",
         price: 14000,
-        previewImage: "https://thesefourwallsblog.com/wp-content/uploads/2021/01/Beige-and-brown-Swedish-apartment-FEATURE.jpg"
+        previewImage: "https://blog.canadianloghomes.com/wp-content/uploads/2022/02/rustic-luxury-interior-design.jpg"
       },
       {
         ownerId: 1,
