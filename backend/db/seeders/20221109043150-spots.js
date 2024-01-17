@@ -74,7 +74,7 @@ module.exports = {
         lng: 2641,
         name: "The River House",
         description: "An artistic and architectural triumph, this dynamic home offers a premium stay on Bali’s southern coast in elegant, modern surrounds.",
-        price: 1200,
+        price: 1100,
         previewImage: "https://cdn.shopify.com/s/files/1/0048/7194/6351/files/7FB044A1-C032-426C-B0A3-7E4A0D0EED9F.jpg?v=1638830638"
       },
       {
